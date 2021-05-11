@@ -1,8 +1,23 @@
 import React from 'react';
+import './App.css';
+import Login from './components/Login/Login';
+import { useStateValue } from './StateProvider';
 
 function App() {
+  const [{ user }, dispatch] = useStateValue();
+
   return (
-    <h1>DEV SETS BABY</h1>
+    <div className="app">
+      {!user ? (
+        <Login />
+      ) : (
+        <>
+          <div className="body">
+            
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
