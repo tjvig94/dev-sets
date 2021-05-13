@@ -3,11 +3,7 @@ body {
 }
 
 .homeContent {
-    border: 1px green solid;
+    border: 1px #cbc4b3 solid;
     margin-top: 5%;
 }
 
-.MuiCardMedia-img {
-    max-width: 450px;
-    max-height: 300px;
-}
