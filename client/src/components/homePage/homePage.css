@@ -1,0 +1,13 @@
+body {
+    background-color: #171717;
+}
+
+.homeContent {
+    border: 1px green solid;
+    margin-top: 5%;
+}
+
+.MuiCardMedia-img {
+    max-width: 450px;
+    max-height: 300px;
+}
