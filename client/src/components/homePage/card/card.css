@@ -6,3 +6,11 @@
 /* .favoriteButton {
 
 } */
+
+
+/* 
+user context at root of app
+soon as login is successful return user obj in ap response
+store in global state(context)
+have access to the user throughout the app
+ */
