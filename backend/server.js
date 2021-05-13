@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const admin = require("firebase-admin");
 const db = require('./models');
+require('dotenv').config();
 
 // Initialize administrative privileges for development
   const serviceAccount = require("./serviceAccountKey.json");
@@ -16,7 +17,7 @@ const db = require('./models');
 app.use(express.json());
 app.use(express.urlencoded( { extended: true }));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://devsets:unhteamatom@devsetscluster.jq2vi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
