@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 
 //get user
 router.get('/', async (req, res) => {
@@ -58,3 +59,5 @@ router.get('/logout', (req, res) => {
         res.status(400).end();
     };
 });
+
+module.exports = router;
