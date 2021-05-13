@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "firebase-admin": "^9.8.0",
     "mongoose": "^5.12.8"
   }
 }
