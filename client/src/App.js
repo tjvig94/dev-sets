@@ -1,24 +1,15 @@
 import React from 'react';
 import './App.css';
-import Login from './components/Login/Login';
-import { useStateValue } from './StateProvider';
+import { BrowserRouter as Router } from "react-router-dom"
+import MainContainer from "./components/mainContainer"
 
 function App() {
-  const [{ user }, dispatch] = useStateValue();
 
   return (
-    <div className="app">
-      {!user ? (
-        <Login />
-      ) : (
-        <>
-          <div className="body">
-            
-          </div>
-        </>
-      )}
-    </div>
-  );
+    <Router>
+      <MainContainer />
+    </Router>
+  )
 }
 
 export default App;
