@@ -14,7 +14,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import { Modal, Button } from "@material-ui/core";
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
-import temp from "./images/temp.jpg"
+// import temp from "./images/temp.jpg"
+import "./card.css"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ContentCard() {
+export default function ContentCard(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -66,6 +67,9 @@ export default function ContentCard() {
         setOpen(false);
     };
 
+    const handleLike = () => {
+
+    };
 
 
     return (
@@ -75,27 +79,32 @@ export default function ContentCard() {
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
                         M
-          </Avatar>
+                        {/* if doesnt upload profile image, get first letter of username */}
+                    </Avatar>
                 }
                 action={
                     <IconButton aria-label="settings">
                     </IconButton>
                 }
-                title="Mike Fearnley"
-                subheader="September 14, 2016"
+                title={props.post.user.name}
+            // subheader=""
             />
             <CardMedia
                 className={classes.media}
-                image={temp}
-                title="Paella dish"
+                image={props.post.image}
+                title={props.post.title}
             />
             <CardActions
                 className={classes.style}
                 disableSpacing
             >
+
                 <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+
+                    <FavoriteIcon onClick={handleLike} className="favoriteButton" />
+
                 </IconButton>
+
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
@@ -116,13 +125,12 @@ export default function ContentCard() {
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
-                            <img src={temp} alt="temp" className="MuiCardMedia-img" style={{ height: "200", width: "400" }} />
-                            <h2 id="transition-modal-title">Dev-Sets</h2>
-                            <p id="transition-modal-description">An application that allows users to show their set ups and new projects!</p>
+                            <img src={props.post.image} alt="temp" className="MuiCardMedia-img" style={{ height: "200", width: "400" }} />
+                            <h2 id="transition-modal-title" >{props.post.title}</h2>
+                            <Typography variant="overline" id="transition-modal-description">{props.post.description}</Typography>
                         </div>
                     </Fade>
                 </Modal>
-
             </CardActions>
         </Card>
     );
