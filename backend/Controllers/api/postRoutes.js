@@ -1,16 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../models');
+const multer = require('multer');
+// const { base } = require('../../models/Post');
+// const upload = multer({ dest: "uploads/" });
+
 
 // CREATE
-router.post('/', async (req, res) => {
+router.post('/', upload.single('image') , async (req, res) => {
     try {
-        const { title, desc, image, user } = req.body;
+        const { title, desc, user } = req.body;
         db.Post.create({ 
+            user: user,
             title: title, 
             desc: desc,
-            image: image,
-            user: user
+            image: {
+                data: req.file.filename,
+                contentType: 'image/png'
+            }
         }).then(post => res.status(200).json(post))      
     } catch (error) {
         res.status(500).json(error);
