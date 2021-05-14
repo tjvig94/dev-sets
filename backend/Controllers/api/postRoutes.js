@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
         res.status(500).json(error);
         console.log(error);
     }
-})
+});
 
 // UPDATE
 router.put('/:id', async (req, res) => {
