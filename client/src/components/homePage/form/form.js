@@ -35,7 +35,7 @@ function Form() {
                 <div className="descFormEntry">
                     <label for="desc" className="formLabel">Image Description:</label>
                     <textarea id="desc" name="desc" rows="2"
-                        placeholder="Description" className="formInput" required>
+                        placeholder="Description" required>
                     </textarea>
                 </div>
                 <div className="imgUploadButton">
