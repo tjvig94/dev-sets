@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../../models');
 const multer = require('multer');
 // const { base } = require('../../models/Post');
-// const upload = multer({ dest: "uploads/" });
+const upload = multer({ dest: "uploads/" });
 
 
 // CREATE
@@ -28,7 +28,7 @@ router.post('/', upload.single('image') , async (req, res) => {
 // READ ALL POSTS
 router.get('/', async (req, res) => {
     try {
-        db.Post.find({}).then(posts => res.status(200).json(posts))
+        db.Post.findAll({}).then(posts => res.status(200).json(posts))
     } catch (error) {
         res.status(500).json(error);
         console.log(error);
