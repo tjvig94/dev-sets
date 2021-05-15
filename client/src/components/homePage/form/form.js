@@ -1,27 +1,47 @@
-import React from "react"
-import { Button } from "@material-ui/core"
+import React from "react";
+import { Button } from "@material-ui/core";
 
 
 function Form() {
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        fetch('/api/post', {
+            body: formData,
+            method: 'post',
+            // headers: {
+            //     'Content-Type': 'multipart/form-data'
+            // },
+   
+        }
+        )
+    }
+
+
     return (
         <div>
-            <form action="/" method="POST" enctype="multipart/form-data">
+            <form onSubmit={handleSubmit} encType='multipart/form-data'>
+            <div>
+                    <label for="name">User:</label>
+                    <input type="text" id="user" placeholder="UserName"
+                        name="user" required />
+                </div>
                 <div>
                     <label for="name">Image Title:</label>
-                    <input type="text" id="name" placeholder="Name"
-                        value="" name="name" required />
+                    <input type="text" id="title" placeholder="Title Name"
+                        name="title" required />
                 </div>
                 <div>
                     <label for="desc">Image Description:</label>
-                    <textarea id="desc" name="pesc" value="" rows="2"
+                    <textarea id="desc" name="desc" rows="2"
                         placeholder="Description" required>
                     </textarea>
                 </div>
                 <div>
-                    <label for="file-upload" className="uploadButton">Upload Image:</label>
+                    <label for="image" className="uploadButton">Upload Image:</label>
                     <input type="file" id="image"
-                        name="image" value="" require />
+                        name="image"  required />
                 </div>
                 <div>
                     <Button type="submit" variant="contained">Submit</Button>

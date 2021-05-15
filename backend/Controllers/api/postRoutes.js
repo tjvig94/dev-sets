@@ -1,16 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../models');
+const multer = require('multer');
+// const { base } = require('../../models/Post');
+const upload = multer({ dest: "uploads/" });
+
 
 // CREATE
-router.post('/', async (req, res) => {
+router.post('/', upload.single('image') , async (req, res) => {
     try {
-        const { title, desc, image, user } = req.body;
+        const { title, desc, user } = req.body;
         db.Post.create({ 
+            user: user,
             title: title, 
             desc: desc,
-            image: image,
-            user: user
+            image: {
+                data: req.file.filename,
+                contentType: 'image/png'
+            }
         }).then(post => res.status(200).json(post))      
     } catch (error) {
         res.status(500).json(error);
@@ -21,7 +28,7 @@ router.post('/', async (req, res) => {
 // READ ALL POSTS
 router.get('/', async (req, res) => {
     try {
-        db.Post.find({}).then(posts => res.status(200).json(posts))
+        db.Post.findAll({}).then(posts => res.status(200).json(posts))
     } catch (error) {
         res.status(500).json(error);
         console.log(error);

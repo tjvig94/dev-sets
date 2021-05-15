@@ -7,5 +7,16 @@
     "firebase-admin": "^9.8.0",
     "mongoose": "^5.12.8",
     "multer": "^1.4.2"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

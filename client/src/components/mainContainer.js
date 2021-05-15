@@ -23,11 +23,12 @@ function MainContainer() {
                         </>
                     )}
                 </Route>
+
                 <Route path={HOME_PATH} exact={true}>
                     <HomePage />
                 </Route>
-                <Route path={USER_PATH} exact={true}>
 
+                <Route path={USER_PATH} exact={true}>
                 </Route>
             </Switch>
         </div>
