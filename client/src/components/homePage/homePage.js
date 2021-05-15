@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./homePage.css";
-import { Container } from "@material-ui/core";
+import { Container, Row } from "@material-ui/core";
 import ContentCard from "./card/card";
 import Form from "./form/form";
 
@@ -51,12 +51,13 @@ function HomePage() {
 
 
     return (
-        <Container maxWidth="sm" className="homeContent">
+        <Container maxWidth="lg" className="homeContent">
+
             {cardArray.map(post => (
                 <ContentCard post={post} key={post.id} />
             ))}
 
-            <Form />
+
         </Container>
     )
 }
