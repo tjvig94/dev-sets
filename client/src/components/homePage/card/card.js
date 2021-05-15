@@ -14,27 +14,13 @@ import ShareIcon from '@material-ui/icons/Share';
 import { Modal, Button } from "@material-ui/core";
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
-// import temp from "./images/temp.jpg"
-import "./card.css"
+import "./card.css";
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        maxWidth: 345,
-    },
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
-    },
-    expand: {
-        transform: 'rotate(0deg)',
-        marginLeft: 'auto',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
-    },
-    expandOpen: {
-        transform: 'rotate(180deg)',
     },
     avatar: {
         backgroundColor: brown[500],
@@ -73,7 +59,7 @@ export default function ContentCard(props) {
 
 
     return (
-        <Card className={classes.root}>
+        <Card className={clsx(classes.root, "postCard")} >
             <CardHeader
                 className={classes.style}
                 avatar={
@@ -86,8 +72,8 @@ export default function ContentCard(props) {
                     <IconButton aria-label="settings">
                     </IconButton>
                 }
-                title={props.post.user.name}
-            // subheader=""
+                title="Title"
+                subheader={props.post.user.name}
             />
             <CardMedia
                 className={classes.media}
