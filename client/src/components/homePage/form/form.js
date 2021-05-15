@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-
+import "./form.css"
 
 function Form() {
 
@@ -13,38 +13,38 @@ function Form() {
             // headers: {
             //     'Content-Type': 'multipart/form-data'
             // },
-   
+
         }
         )
     }
 
 
     return (
-        <div>
+        <div >
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
-            <div>
-                    <label for="name">User:</label>
+                <div className="userFormEntry">
+                    <label for="name" className="formLabel">User:</label>
                     <input type="text" id="user" placeholder="UserName"
-                        name="user" required />
+                        name="user" required className="formInput" />
                 </div>
-                <div>
-                    <label for="name">Image Title:</label>
+                <div className="nameFormEntry">
+                    <label for="name" className="formLabel">Image Title:</label>
                     <input type="text" id="title" placeholder="Title Name"
-                        name="title" required />
+                        name="title" required className="formInput" />
                 </div>
-                <div>
-                    <label for="desc">Image Description:</label>
+                <div className="descFormEntry">
+                    <label for="desc" className="formLabel">Image Description:</label>
                     <textarea id="desc" name="desc" rows="2"
-                        placeholder="Description" required>
+                        placeholder="Description" className="formInput" required>
                     </textarea>
                 </div>
-                <div>
+                <div className="imgUploadButton">
                     <label for="image" className="uploadButton">Upload Image:</label>
                     <input type="file" id="image"
-                        name="image"  required />
+                        name="image" required />
                 </div>
-                <div>
-                    <Button type="submit" variant="contained">Submit</Button>
+                <div className="formButton">
+                    <Button type="submit" variant="contained" >Submit</Button>
                 </div>
             </form>
         </div>

@@ -1,0 +1,29 @@
+.formButton {
+    float: right 
+}
+
+form {
+    font-size: 1.25em;
+    padding: 0 .25em;
+}
+
+.formLabel {
+    display: block;
+    margin-top: 1em;
+}
+
+.formLabel:first-of-type {
+    margin-top: 0;
+}
+
+.formInput {
+    padding: .5em;
+    border: solid 1px #999
+}
+
+textarea {
+    min-height: 8em;
+    min-width: 100%;
+    padding: .5em;
+    border: solid 1px #999
+}
