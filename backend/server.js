@@ -1,18 +1,19 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 const admin = require("firebase-admin");
 const db = require('./models');
+const multer = require('multer');
 const routes = require('./Controllers');
 require('dotenv').config();
 
 // Initialize administrative privileges for development
-  const serviceAccount = require("./serviceAccountKey.json");
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  });
+//   const serviceAccount = require("./serviceAccountKey.json");
+//   admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount)
+//   });
 // ----------------------------------------------- //
 
 app.use(express.json());
