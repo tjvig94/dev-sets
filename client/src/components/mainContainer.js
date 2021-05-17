@@ -8,7 +8,7 @@ import HomePage from "./homePage/homePage"
 
 function MainContainer() {
     const [{ user }, dispatch] = useStateValue();
-
+    console.log(user);
     return (
         <div className="app">
             <NavBar />
@@ -25,7 +25,7 @@ function MainContainer() {
                 </Route>
 
                 <Route path={HOME_PATH} exact={true}>
-                    <HomePage />
+                    <HomePage user={user}/>
                 </Route>
 
                 <Route path={USER_PATH} exact={true}>

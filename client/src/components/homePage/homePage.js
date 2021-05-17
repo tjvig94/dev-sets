@@ -42,23 +42,26 @@ const dummyData = [
     }
 ]
 
-function HomePage() {
+function HomePage({ user }) {
     const [cardArray, setCardArray] = useState([]);
-
+    
     useEffect(() => {
         setCardArray(dummyData)
     }, [])
 
 
     return (
-        <Container maxWidth="lg" className="homeContent">
+        <div>
+            <Container maxWidth="lg" className="homeContent">
 
-            {cardArray.map(post => (
-                <ContentCard post={post} key={post.id} />
-            ))}
+                {cardArray.map(post => (
+                    <ContentCard post={post} key={post.id} />
+                ))}
 
 
-        </Container>
+            </Container>
+        <Form user={user}/>
+        </div>
     )
 }
 
