@@ -1,32 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 
 
-function Form() {
+function Form({ user }) {
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const userId = user.uid;
         const formData = new FormData(event.target)
-        fetch('/api/post', {
+        formData.append('user', userId);
+        await fetch('/api/post', {
             body: formData,
             method: 'post',
             // headers: {
             //     'Content-Type': 'multipart/form-data'
             // },
    
-        }
-        )
+        })
     }
 
 
     return (
         <div>
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
-            <div>
-                    <label for="name">User:</label>
-                    <input type="text" id="user" placeholder="UserName"
-                        name="user" required />
-                </div>
                 <div>
                     <label for="name">Image Title:</label>
                     <input type="text" id="title" placeholder="Title Name"
