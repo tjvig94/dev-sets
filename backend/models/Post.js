@@ -5,6 +5,7 @@ const postSchema = new Schema({
     title: { type: String },
     desc: { type: String },
     image: { data: Buffer, contentType: String },
+    favorites: { type: Number },
     user: { type: String, required: true }
 });
 
