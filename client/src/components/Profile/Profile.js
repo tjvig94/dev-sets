@@ -1,9 +1,9 @@
-import React,{useEffect,useState,useContext} from 'react'
-import {UserContext} from '../../App'
+import React,{useEffect,useState} from 'react'
+//import {UserContext} from '../../App'
 
 const Profile  = ()=>{
     const [mypics,setPics] = useState([])
-    const {state,dispatch} = useContext(UserContext)
+   // const {state,dispatch} = useContext(UserContext)
     const [image,setImage] = useState("")
     useEffect(()=>{
        fetch('/mypost',{
@@ -27,7 +27,6 @@ const Profile  = ()=>{
         })
         .then(res=>res.json())
         .then(data=>{
-    
        
            fetch('/updatepic',{
                method:"put",
@@ -41,8 +40,8 @@ const Profile  = ()=>{
            }).then(res=>res.json())
            .then(result=>{
                console.log(result)
-               localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
-               dispatch({type:"UPDATEPIC",payload:result.pic})
+             //  localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
+             //  dispatch({type:"UPDATEPIC",payload:result.pic})
                //window.location.reload()
            })
        
@@ -70,17 +69,15 @@ const Profile  = ()=>{
            }}>
                <div>
                    <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-                   src={state?state.pic:"loading"}
+                   src="https://via.placeholder.com/150"
                    />
                  
                </div>
                <div>
-                   <h4>{state?state.name:"loading"}</h4>
-                   <h5>{state?state.email:"loading"}</h5>
+                  
                    <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
-                       <h6>{mypics.length} posts</h6>
-                       <h6>{state?state.followers.length:"0"} followers</h6>
-                       <h6>{state?state.following.length:"0"} following</h6>
+                  //     <h6>{mypics.length} posts</h6>
+ 
                    </div>
 
                </div>
