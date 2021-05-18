@@ -73,12 +73,12 @@ export default function ContentCard(props) {
                     </IconButton>
                 }
                 title="Title"
-                subheader={props.post.user.name}
+                subheader=""
             />
             <CardMedia
                 className={classes.media}
-                image={props.post.image}
-                title={props.post.title}
+                image=""
+                title=""
             />
             <CardActions
                 className={classes.style}

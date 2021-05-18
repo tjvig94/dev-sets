@@ -42,9 +42,9 @@ const dummyData = [
     }
 ]
 
-function HomePage({ user }) {
+function HomePage() {
     const [cardArray, setCardArray] = useState([]);
-    
+
     useEffect(() => {
         setCardArray(dummyData)
     }, [])
@@ -60,7 +60,7 @@ function HomePage({ user }) {
 
 
             </Container>
-        <Form user={user}/>
+
         </div>
     )
 }
