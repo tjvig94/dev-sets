@@ -60,10 +60,10 @@ function NavBar({ user }) {
             <Link as={Link} to={USER_PATH}>Profile</Link>
             <input type="text" placeholder="Search.."></input>
 
-            <div className={clsx(classes.root, "uploadButton")}>
-                <Button type="button" onClick={handleOpen} className="addIcon" >
+            <div className={classes.root}>
+                <Button type="button" onClick={handleOpen} className="uploadButton" >
                     Upload+
-                    </Button>
+                </Button>
                 <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
