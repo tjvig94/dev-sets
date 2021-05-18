@@ -5,7 +5,6 @@ import ContentCard from "./card/card";
 import Form from "./form/form";
 import API from '../../utils/API';
 
-// database query for random
 
 function HomePage({ user }) {
     const [cardArray, setCardArray] = useState([]);

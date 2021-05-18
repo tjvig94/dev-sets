@@ -37,3 +37,7 @@
     background-color: #171717;
     color: white;
   }
+
+  .uploadButton {
+    float: right;
+  }
