@@ -8,7 +8,7 @@ import { useStateValue } from '../StateProvider';
 import HomePage from "./homePage/homePage";
 import UploadButton from "./uploadButton/uploadButton";
 
-import HomePage from "./homePage/homePage"
+
 import Profile from "./Profile/Profile"
 
 
