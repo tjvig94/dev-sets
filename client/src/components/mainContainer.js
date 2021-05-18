@@ -4,8 +4,13 @@ import NavBar from "./navBar/navBar";
 import { Switch, Route } from "react-router-dom";
 import { LOGIN_PATH, HOME_PATH, USER_PATH } from "../views";
 import { useStateValue } from '../StateProvider';
+
 import HomePage from "./homePage/homePage";
 import UploadButton from "./uploadButton/uploadButton";
+
+import HomePage from "./homePage/homePage"
+import Profile from "./Profile/Profile"
+
 
 function MainContainer() {
     const [{ user }, dispatch] = useStateValue();
@@ -31,6 +36,7 @@ function MainContainer() {
                 </Route>
 
                 <Route path={USER_PATH} exact={true}>
+                    <Profile />
                 </Route>
             </Switch>
         </div>
