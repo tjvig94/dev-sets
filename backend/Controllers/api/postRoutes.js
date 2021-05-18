@@ -29,7 +29,7 @@ router.post('/', upload.single('image') , async (req, res) => {
 // READ ALL POSTS
 router.get('/', async (req, res) => {
     try {
-        db.Post.findAll({}).then(posts => res.status(200).json(posts))
+        db.Post.find({}).then(posts => res.status(200).json(posts))
     } catch (error) {
         res.status(500).json(error);
         console.log(error);
