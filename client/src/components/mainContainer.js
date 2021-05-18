@@ -13,7 +13,7 @@ function MainContainer() {
     return (
         <div className="app">
             <NavBar />
-            <UploadButton />
+            {/* <UploadButton /> */}
             <Switch>
                 <Route path={LOGIN_PATH} exact={true}>
                     {!user ? (
@@ -27,7 +27,7 @@ function MainContainer() {
                 </Route>
 
                 <Route path={HOME_PATH} exact={true}>
-                    <HomePage user={user}/>
+                    <HomePage user={user} />
                 </Route>
 
                 <Route path={USER_PATH} exact={true}>
