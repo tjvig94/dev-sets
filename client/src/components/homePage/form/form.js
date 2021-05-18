@@ -15,32 +15,16 @@ function Form({ user }) {
             // headers: {
             //     'Content-Type': 'multipart/form-data'
             // },
-<<<<<<< HEAD
-
-        }
-        )
-=======
    
         })
->>>>>>> 1accb606742e081e5741cd44a7e71bc1e2205d01
     }
 
 
     return (
         <div >
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
-<<<<<<< HEAD
-                <div className="userFormEntry">
-                    <label for="name" className="formLabel">User:</label>
-                    <input type="text" id="user" placeholder="UserName"
-                        name="user" required className="formInput" />
-                </div>
-                <div className="nameFormEntry">
-                    <label for="name" className="formLabel">Image Title:</label>
-=======
                 <div>
                     <label for="name">Image Title:</label>
->>>>>>> 1accb606742e081e5741cd44a7e71bc1e2205d01
                     <input type="text" id="title" placeholder="Title Name"
                         name="title" required className="formInput" />
                 </div>
