@@ -25,7 +25,6 @@ function HomePage({ user }) {
                     <ContentCard post={post} key={post.id} />
                 ))}
             </Container>
-            <Form user={user}/>
         </div>
     )
 };
