@@ -2,41 +2,32 @@ import React,{useEffect,useState} from 'react'
 //import {UserContext} from '../../App'
 
 const Profile  = ()=>{
-    const [mypics,setPics] = useState([])
+    const [mypics,setPics] = useState("")
    // const {state,dispatch} = useContext(UserContext)
     const [image,setImage] = useState("")
     useEffect(()=>{
-       fetch('/mypost',{
+       fetch('/api/profile/profilePic',{
            headers:{
-               "Authorization":"Bearer "+localStorage.getItem("jwt")
+               "Authorization":"Bearer "+localStorage.getItem("jwt")//put in session storage for closing tab and throwing them out.
            }
        }).then(res=>res.json())
        .then(result=>{
            console.log(result)
-           setPics(result.mypost)
+           setPics(result.profilePic)
        })
     },[])
     useEffect(()=>{
        if(image){
         const data = new FormData()
         data.append("file",image)
-        data.append("cloud_name","cnq")
-        fetch("",{
-            method:"post",
-            body:data
-        })
-        .then(res=>res.json())
-        .then(data=>{
-       
+        data.append("cloud_name","cnq")       
            fetch('/updatepic',{
-               method:"put",
+               method:"post",
                headers:{
                    "Content-Type":"application/json",
                    "Authorization":"Bearer "+localStorage.getItem("jwt")
                },
-               body:JSON.stringify({
-                   pic:data.url
-               })
+               body:data
            }).then(res=>res.json())
            .then(result=>{
                console.log(result)
@@ -69,14 +60,14 @@ const Profile  = ()=>{
            }}>
                <div>
                    <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-                   src="https://via.placeholder.com/150"
+                   src={mypics}alt="profile"
                    />
                  
                </div>
                <div>
                   
                    <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
-                  //     <h6>{mypics.length} posts</h6>
+                       <h6>{mypics} posts</h6>
  
                    </div>
 
@@ -95,11 +86,11 @@ const Profile  = ()=>{
             </div>      
            <div className="gallery">
                {
-                   mypics.map(item=>{
-                       return(
-                        <img key={item._id} className="item" src={item.photo} alt={item.title}/>  
-                       )
-                   })
+                //    mypics.map(item=>{
+                //        return(
+                //         <img key={item._id} className="item" src={item.photo} alt={item.title}/>  
+                //        )
+                //    })
                }
 
            
