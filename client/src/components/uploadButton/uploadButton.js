@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Fab from "@material-ui/core/Fab";
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import "./uploadButton.css";
@@ -37,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function UploadButton() {
+function UploadButton({ user }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
@@ -53,6 +52,7 @@ function UploadButton() {
 
     return (
         <div className={classes.root}>
+
             <AddIcon type="button" onClick={handleOpen} />
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -68,10 +68,11 @@ function UploadButton() {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <Form />
+                        <Form user={user} />
                     </div>
                 </Fade>
             </Modal>
+
         </div>
     )
 }
