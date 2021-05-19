@@ -2,24 +2,36 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../models');
 const multer = require('multer');
-// const { base } = require('../../models/Post');
-const upload = multer({ dest: "uploads/" });
+const path = require('path');
+const fs = require('fs');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename:function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+const upload = multer({ storage: storage });
 
 
 // CREATE
 router.post('/', upload.single('image') , async (req, res) => {
     try {
+        const image = fs.readFileSync(req.file.path);
+        const encode_image = image.toString('base64');
         const { title, desc, user } = req.body;
         const newPost = await db.Post.create({ 
             user: user,
             title: title, 
             desc: desc,
             image: {
-                data: req.file.filename,
-                contentType: 'image/png'
+                data: new Buffer(encode_image, 'base64'),
+                contentType: req.file.mimetype,
+                path: req.file.path
             }
         })
-        res.status(200).json(newPost);    
+        res.status(200).json(image);    
     } catch (error) {
         res.status(500).json(error);
         console.log(error);
@@ -29,7 +41,7 @@ router.post('/', upload.single('image') , async (req, res) => {
 // READ ALL POSTS
 router.get('/', async (req, res) => {
     try {
-        db.Post.findAll({}).then(posts => res.status(200).json(posts))
+        db.Post.find({}).then(posts => res.status(200).json(posts))
     } catch (error) {
         res.status(500).json(error);
         console.log(error);

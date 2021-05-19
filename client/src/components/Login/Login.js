@@ -16,6 +16,7 @@ function Login() {
           type: actionTypes.SET_USER,
           user: result.user,
         });
+        console.log(result);
       })
       .catch((error) => {
         alert(error.message);
@@ -24,14 +25,12 @@ function Login() {
   return (
     <div className="login">
       <div className="login__logo">
+
         <img
-          src=""
-          alt=""
+          src="./images/dev.png"
+          alt="dev-logo"
         />
-        <img
-          src=""
-          alt=""
-        />
+
       </div>
       <Button type="submit" onClick={signIn}>
         Sign In
