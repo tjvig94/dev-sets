@@ -6,7 +6,8 @@ const postSchema = new Schema({
     desc: { type: String },
     image: { data: Buffer, contentType: String },
     favorites: { type: Number },
-    user: { type: String, required: true }
+    user: { type: String, required: true },
+    date: {type: Date, default: Date.now}
 });
 
 const Post = mongoose.model("Post", postSchema);
