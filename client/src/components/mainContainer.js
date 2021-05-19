@@ -4,7 +4,6 @@ import NavBar from "./navBar/navBar";
 import { Switch, Route } from "react-router-dom";
 import { LOGIN_PATH, HOME_PATH, USER_PATH } from "../views";
 import { useStateValue } from '../StateProvider';
-
 import HomePage from "./homePage/homePage";
 import UploadButton from "./uploadButton/uploadButton";
 
@@ -17,7 +16,7 @@ function MainContainer() {
     console.log(user);
     return (
         <div className="app">
-            <NavBar user={user}/>
+            <NavBar user={user} />
             {/* <UploadButton /> */}
             <Switch>
                 <Route path={LOGIN_PATH} exact={true}>
