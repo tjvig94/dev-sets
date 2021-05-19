@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@material-ui/core";
 import "./form.css"
 
@@ -15,7 +15,7 @@ function Form({ user }) {
             // headers: {
             //     'Content-Type': 'multipart/form-data'
             // },
-   
+
         })
     }
 
