@@ -7,15 +7,12 @@ import API from '../../utils/API';
 
 function HomePage({ user }) {
     const [cardArray, setCardArray] = useState([]);
-    const [postData, setPostData] = useState([]);
 
     useEffect(() => {
         API.getPosts().then(res => {
-            setPostData(res.data);
+            setCardArray(res.data);
         });
-        setCardArray(postData);
-
-    }, [postData]);
+    }, []);
 
     return (
         <div>
