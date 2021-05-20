@@ -35,13 +35,11 @@ const Profile  = ()=>{
              //  dispatch({type:"UPDATEPIC",payload:result.pic})
                //window.location.reload()
            })
-       
-        })
         .catch(err=>{
             console.log(err)
         })
        }
-    },[image])
+    }, [image])
     const updatePhoto = (file)=>{
         setImage(file)
     }
