@@ -8,6 +8,11 @@
     max-width: 450px;
     max-height: 300px;
 }
+
+.detailButton {
+    float: right;
+    color: white;
+}
  
 
 /* .favoriteButton {
