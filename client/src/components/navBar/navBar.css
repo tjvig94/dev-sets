@@ -1,6 +1,6 @@
 /* Add a black background color to the top navigation */
 .topnav {
-    background-color: #cbc4b3;
+    background-color: #6b645d;
     overflow: hidden;
   }
   
@@ -12,12 +12,13 @@
     padding: 14px 16px;
     text-decoration: none;
     font-size: 13px;
+    color: white;
   }
   
   /* Change the color of links on hover */
   .topnav a:hover {
-    background-color: #6b645d;
-    color: white;
+    background-color: white;
+    color: black;
     text-decoration: underline;
   }
   
@@ -41,3 +42,5 @@
   .uploadButton {
     float: right;
   }
+
+  

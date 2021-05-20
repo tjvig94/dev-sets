@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./homePage.css";
 import { Container } from "@material-ui/core";
 import ContentCard from "./card/card";
-import Form from "./form/form";
 import API from '../../utils/API';
 
 

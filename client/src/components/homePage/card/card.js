@@ -9,8 +9,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { brown } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import { Modal, Button } from "@material-ui/core";
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -37,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
     },
     style: {
-        backgroundColor: "#6b645d",
+        backgroundColor: "#cbc4b3",
     },
 }));
 
@@ -92,16 +90,16 @@ export default function ContentCard(props) {
                 disableSpacing
             >
 
-                <IconButton aria-label="add to favorites">
+                {/* <IconButton aria-label="add to favorites">
 
                     <FavoriteIcon onClick={handleLike} className="favoriteButton" />
 
-                </IconButton>
-
+                </IconButton> */}
+                {/* 
                 <IconButton aria-label="share">
                     <ShareIcon />
-                </IconButton>
-                <Button type="button" onClick={handleOpen}>
+                </IconButton> */}
+                <Button type="button" onClick={handleOpen} className="detailButton">
                     Details
                 </Button>
                 <Modal
