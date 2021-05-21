@@ -1,28 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@material-ui/core";
 import "./form.css"
+import storage from '../../../firebase';
+import axios from 'axios';
 
 function Form({ user }) {
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const userId = user.uid;
-        const formData = new FormData(event.target)
-        formData.append('user', userId);
-        await fetch('/api/post', {
-            body: formData,
-            method: 'post',
-            // headers: {
-            //     'Content-Type': 'multipart/form-data'
-            // },
+    const [file, setFile] = useState(null);
+    const [title, setTitle] = useState('');
+    const [desc, setDesc] = useState('');
 
-        })
+    const handleChange = (event) => {
+        setFile(event.target.files[0])
     }
 
+    useEffect(() => {
+        const titleVal = document.getElementById('title').value;
+        const descVal = document.getElementById('desc').value;
+        setTitle(titleVal);
+        setDesc(descVal);
+    }, [title, desc]);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // send image to firebase storage, and get reference url
+        const uploadTask = await storage.ref(`/images/${file.name}`).put(file);     
+        const imageUrl = await storage.ref('images').child(file.name).getDownloadURL();
+        
+        // create formdata to send to database    
+        const formData = {
+            user: user.uid,
+            title: title,
+            desc: desc,
+            image: imageUrl
+        }
+        await axios.post('/api/post', formData);
+    };
 
     return (
         <div >
-            <form onSubmit={handleSubmit} encType='multipart/form-data'>
+            <form onSubmit={handleSubmit} enctype='multipart/form-data' id="upload-form">
                 <div>
                     <label for="name">Image Title:</label>
                     <input type="text" id="title" placeholder="Title Name"
@@ -37,7 +55,7 @@ function Form({ user }) {
                 <div className="imgUploadButton">
                     <label for="image" className="uploadButton">Upload Image:</label>
                     <input type="file" id="image"
-                        name="image" required />
+                        name="image" onChange={handleChange} required />
                 </div>
                 <div className="formButton">
                     <Button type="submit" variant="contained" >Submit</Button>

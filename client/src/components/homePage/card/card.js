@@ -55,12 +55,12 @@ export default function ContentCard(props) {
 
     };
 
-    const arrayBufferToBase64 = (buffer) => {
-        let binary = "";
-        let bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach(byte => binary += String.fromCharCode(byte));
-        return window.btoa(binary);
-    }
+    // const arrayBufferToBase64 = (buffer) => {
+    //     let binary = "";
+    //     let bytes = [].slice.call(new Uint8Array(buffer));
+    //     bytes.forEach(byte => binary += String.fromCharCode(byte));
+    //     return window.btoa(binary);
+    // }
 
 
     return (
@@ -82,7 +82,7 @@ export default function ContentCard(props) {
             />
             <CardMedia
                 className={classes.media}
-                image={`data:${props.post.image.contentType};base64,${arrayBufferToBase64(props.post.image.data.data)}`}
+                image={props.post.image}
                 title={props.post.title}
             />
             <CardActions
@@ -116,7 +116,7 @@ export default function ContentCard(props) {
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
-                            <img src={`data:${props.post.image.contentType};base64,${arrayBufferToBase64(props.post.image.data.data)}`} alt="temp" className="MuiCardMedia-img" style={{ height: "200", width: "400" }} />
+                            <img src={props.post.image} alt="temp" className="MuiCardMedia-img" style={{ height: "200", width: "400" }} />
                             <h2 id="transition-modal-title" >{props.post.title}</h2>
                             <Typography variant="overline" id="transition-modal-description">{props.post.desc}</Typography>
                         </div>
