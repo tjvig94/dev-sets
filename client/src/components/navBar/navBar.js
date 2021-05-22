@@ -42,7 +42,6 @@ function NavBar({ user }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
-
     const handleOpen = () => {
         setOpen(true);
     };
@@ -55,14 +54,13 @@ function NavBar({ user }) {
 
         <div className="topnav">
             <Link as={Link} to={HOME_PATH}>Home</Link>
-            <Link as={Link} to={LOGIN_PATH}>Log In</Link>
+            <Link as={Link} to={LOGIN_PATH}>Log In</Link>            
             <Link as={Link} to={USER_PATH}>Profile</Link>
+
             <input type="text" placeholder="Search.."></input>
 
             <div className={classes.root}>
-                <Button type="button" onClick={handleOpen} className="uploadButton" >
-                    Upload+
-                </Button>
+                <Button type="button" onClick={handleOpen} className="uploadButton" >Upload+</Button>
                 <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
