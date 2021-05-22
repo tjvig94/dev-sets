@@ -12,7 +12,7 @@ function HomePage({ user }) {
         API.getPosts().then(res => {
             setCardArray(res.data);
         });
-    }, []);
+    }, [cardArray]);
 
     return (
         <div>
