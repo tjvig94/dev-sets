@@ -42,35 +42,63 @@ const Profile  = ()=>{
        }
     }, [image])
     const updatePhoto = (file)=>{
+        
+        console.log('file')
+        console.log(file)
+        // Get current username
+        var user = firebase.auth().currentUser;
 
+        // Create a Storage Ref w/ username
+        var storageRef = firebase.storage().ref(user + '/profilePicture/' + file.name);
 
-            // Create the file metadata
-           var metadata = {
-           contentType: 'image/jpeg'
+        // Create the file metadata
+        var metadata = {
+        contentType: 'image/jpeg'
         };
-        // Create a root reference
-        var storageRef = firebase.storage().ref();
-        console.log('storageref');
-        console.log(storageRef);
+
         // Upload file and metadata to the object 'images/mountains.jpg'
-        var uploadTask = storageRef.child('profilepics/' + file.name).put(file, metadata);
-        console.log(uploadTask);
+        var uploadTask = storageRef.child('profilePicture/' + file.name).put(file, metadata);
 
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+        }, 
+        (error) => {
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+            case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+            case 'storage/canceled':
+                // User canceled the upload
+                break;
 
+            // ...
 
-        var starsRef = storageRef.child('profilepics/' + file.name);
-        console.log('starsRef');
-        console.log(starsRef);
-        // Get the download URL
-        starsRef.getDownloadURL()
-        .then((url) => {
-          // Insert url into an <img> tag to "download"
-          file=url;
-          setImage(file);
-        })
-
-
-
+            case 'storage/unknown':
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+        }, 
+        () => {
+            // Upload completed successfully, now we can get the download URL
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            });
+        }
+        );
 
         // setImage(file)
         
@@ -108,7 +136,7 @@ const Profile  = ()=>{
             <div className="file-field input-field" style={{margin:"10px"}}>
             <div className="btn #64b5f6 blue darken-1">
                 <span>Update pic</span>
-                <input type="file" onChange={(e)=>updatePhoto(e.target.files[0])} />
+                <input type="file" onChange={(e)=>updatePhoto(e.target.files[0])} />//
             </div>
             <div className="file-path-wrapper">
                 <input className="file-path validate" type="text" />
