@@ -13,7 +13,8 @@ const Profile  = ()=>{
            }
        }).then(res=>res.json())
        .then(result=>{
-           console.log(result)
+           console.log('result');           ;
+           console.log(result);
            setPics(result.profilePic)
        })
     },[])
@@ -49,7 +50,7 @@ const Profile  = ()=>{
         var user = firebase.auth().currentUser;
 
         // Create a Storage Ref w/ username
-        var storageRef = firebase.storage().ref(user + '/profilePicture/' + file.name);
+        var storageRef = firebase.storage().ref('profilepics/' + file.name);//user + '/profilepics/' + file.name
 
         // Create the file metadata
         var metadata = {
@@ -57,7 +58,7 @@ const Profile  = ()=>{
         };
 
         // Upload file and metadata to the object 'images/mountains.jpg'
-        var uploadTask = storageRef.child('profilePicture/' + file.name).put(file, metadata);
+        var uploadTask = storageRef.child('profilepics/' + file.name).put(file, metadata);
 
         // Listen for state changes, errors, and completion of the upload.
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -96,6 +97,8 @@ const Profile  = ()=>{
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
             console.log('File available at', downloadURL);
+            //setImage(file);
+            setPics(downloadURL);
             });
         }
         );
