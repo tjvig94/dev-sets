@@ -15,27 +15,26 @@ function MainContainer() {
     console.log(user);
     return (
         <div className="app">
-            <NavBar user={user} />
+           
             {/* <UploadButton /> */}
             <Switch>
-                <Route path={LOGIN_PATH} exact={true}>
+                
                     {!user ? (
                         <Login />
                     ) : (
                         <>
-                            <div className="body">
-                            </div>
+                        <NavBar user={user} />
+                        <Route path={LOGIN_PATH} exact={true}></Route>
+                            <Route path={HOME_PATH} exact={true}>
+                                <HomePage user={user} />
+                            </Route>
+                            <Route path={USER_PATH} exact={true}>
+                                <Profile />
+                            </Route>
                         </>
                     )}
-                </Route>
+                
 
-                <Route path={HOME_PATH} exact={true}>
-                    <HomePage user={user} />
-                </Route>
-
-                <Route path={USER_PATH} exact={true}>
-                    <Profile />
-                </Route>
             </Switch>
         </div>
     );
