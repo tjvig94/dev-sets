@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 //import {UserContext} from '../../App'
+import firebase from 'firebase';
 
 const Profile  = ()=>{
     const [mypics,setPics] = useState("")
@@ -41,7 +42,23 @@ const Profile  = ()=>{
        }
     }, [image])
     const updatePhoto = (file)=>{
-        setImage(file)
+
+
+            // Create the file metadata
+           var metadata = {
+           contentType: 'image/jpeg'
+        };
+        // Create a root reference
+        var storageRef = firebase.storage().ref();
+        console.log('storageref');
+        console.log(storageRef);
+        // Upload file and metadata to the object 'images/mountains.jpg'
+        var uploadTask = storageRef.child('profilepics/' + file.name).put(file, metadata);
+        console.log(uploadTask);
+
+        // setImage(file)
+        
+       // setImage(file)
     }
    return (
        <div style={{maxWidth:"550px",margin:"0px auto"}}>
