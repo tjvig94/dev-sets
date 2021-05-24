@@ -56,6 +56,22 @@ const Profile  = ()=>{
         var uploadTask = storageRef.child('profilepics/' + file.name).put(file, metadata);
         console.log(uploadTask);
 
+
+
+        var starsRef = storageRef.child('profilepics/' + file.name);
+        console.log('starsRef');
+        console.log(starsRef);
+        // Get the download URL
+        starsRef.getDownloadURL()
+        .then((url) => {
+          // Insert url into an <img> tag to "download"
+          file=url;
+          setImage(file);
+        })
+
+
+
+
         // setImage(file)
         
        // setImage(file)
