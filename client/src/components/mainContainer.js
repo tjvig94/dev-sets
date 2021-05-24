@@ -15,7 +15,7 @@ function MainContainer() {
     console.log(user);
     return (
         <div className="app">
-            <NavBar user={user} />
+           
             {/* <UploadButton /> */}
             <Switch>
                 
@@ -23,6 +23,7 @@ function MainContainer() {
                         <Login />
                     ) : (
                         <>
+                        <NavBar user={user} />
                         <Route path={LOGIN_PATH} exact={true}></Route>
                             <Route path={HOME_PATH} exact={true}>
                                 <HomePage user={user} />
