@@ -8,6 +8,7 @@ import HomePage from "./components/homePage/homePage";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/Login/Login";
 import { UserContext } from './contexts/UserContext';
+import MainContainer from './components/mainContainer';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
                 <Profile />
             </Route>
         </Switch>
+        <MainContainer />
     </Router>
   )
 };
