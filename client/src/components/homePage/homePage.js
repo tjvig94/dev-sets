@@ -4,8 +4,8 @@ import { Container } from "@material-ui/core";
 import ContentCard from "./card/card";
 import API from '../../utils/API';
 
+function HomePage() {
 
-function HomePage({ user }) {
     const [cardArray, setCardArray] = useState([]);
 
     useEffect(() => {
