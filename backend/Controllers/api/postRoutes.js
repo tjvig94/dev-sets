@@ -6,13 +6,16 @@ const path = require('path');
 // CREATE
 router.post('/', async (req, res) => {
     try {       
-        const { title, desc, user, image } = req.body;
+        const { desc, name, pfp, title, user, image } = req.body;
         const newPost = await db.Post.create({ 
             user: user,
+            name: name,
+            pfp: pfp,
             title: title, 
             desc: desc,
             image: image
         })
+        console.log(newPost)
         res.status(200).json(newPost);    
     } catch (error) {
         res.status(500).json(error);
@@ -59,5 +62,17 @@ router.delete('/:id', async (req, res) => {
         console.log(error);
     }
 });
+
+// DELETE ALL
+// router.delete('/', async (req, res) => {
+//     try {
+//         const allPosts = await db.Post.deleteMany({});
+//         res.status(200).json({ message: `Removed posts`});
+//         console.log(`Removed posts.`);
+//     } catch (error) {
+//         res.status(500).json(error);
+//         console.log(error);
+//     }
+// })
 
 module.exports = router;
