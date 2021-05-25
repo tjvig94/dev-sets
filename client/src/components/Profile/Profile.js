@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 //import {UserContext} from '../../App'
 import firebase from 'firebase';
-import { colors } from '@material-ui/core';
+import { colors, FormHelperText } from '@material-ui/core';
 
 
 
@@ -23,7 +23,7 @@ const Profile  = () => {
 
     const useStyles = makeStyles({
         root: {
-          maxWidth: 345,
+          maxWidth: 345,          
         },
         media: {
           height: 140,
