@@ -59,7 +59,7 @@ function NavBar() {
                 <>
                 <Link as={Link} to={HOME_PATH}>Home</Link>
                 <Link as={Link} to={USER_PATH}>Profile</Link>
-                <Link type="button" onClick={logout}>Logout</Link>
+                <Link type="button" onClick={logout} to={LOGIN_PATH}>Logout</Link>
                 <div className={classes.root}>
                 <Button type="button" onClick={handleOpen} className="uploadButton" >Upload+</Button>
                 <Modal

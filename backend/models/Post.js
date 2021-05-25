@@ -7,6 +7,8 @@ const postSchema = new Schema({
     image: { type: String },
     favorites: { type: Number },
     user: { type: String, required: true },
+    name: { type: String },
+    pfp: { type: String },
     date: {type: Date, default: Date.now}
 });
 

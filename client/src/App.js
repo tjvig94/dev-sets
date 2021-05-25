@@ -7,8 +7,8 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "./components/homePage/homePage";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/Login/Login";
-import { UserContext } from './contexts/UserContext';
 import MainContainer from './components/mainContainer';
+import { UserContext } from './contexts/UserContext';
 
 function App() {
 
@@ -17,10 +17,7 @@ function App() {
     return (
         <div>
             <Router>
-
-
                 <Switch>
-
                     {!user ? (
                         <Login />
                     ) : (
@@ -45,6 +42,5 @@ function App() {
         </div>
     )
 };
-
 
 export default App;

@@ -59,7 +59,7 @@ const Profile  = () => {
            }}>
                <div>
                    <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-                   src={mypics}alt="profile"
+                   src={user.photoURL}alt="profile"
                    />
                  
                </div>
