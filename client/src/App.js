@@ -11,25 +11,35 @@ import MainContainer from './components/mainContainer';
 
 function App() {
 
-  return (
-    <Router>
-        <NavBar />
-        <Switch>
-            <Route path={LOGIN_PATH} exact={true}>
-                <Login />                
-            </Route>
+    const { user } = useContext(UserContext)
 
-            <Route path={HOME_PATH} exact={true}>
-                <HomePage />
-            </Route>
+    return (
+        <div>
+            <Router>
+                <Switch>
+                    {!user ? (
+                        <Login />
+                    ) : (
+                        <>
+                            <Route path={LOGIN_PATH} exact={true}>
+                                <Login />
+                            </Route>
 
-            <Route path={USER_PATH} exact={true}>
-                <Profile />
-            </Route>
-        </Switch>
-        <MainContainer />
-    </Router>
-  )
+                            <Route path={HOME_PATH} exact={true}>
+                                <NavBar />
+                                <HomePage />
+                            </Route>
+
+                            <Route path={USER_PATH} exact={true}>
+                                <NavBar />
+                                <Profile />
+                            </Route>
+                        </>)}
+                </Switch>
+                <MainContainer />
+            </Router>
+        </div>
+    )
 };
 
 export default App;
