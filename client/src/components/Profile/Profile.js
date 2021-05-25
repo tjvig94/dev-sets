@@ -164,11 +164,10 @@ const Profile  = () => {
             </CardContent>
           </CardActionArea>
           <CardActions>
+            <input type="file" id="propic" onChange={(e)=>updatePhoto(e.target.files[0])} hidden/>
+            <label for ="propic">Change Pic</label>
             <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
+              
             </Button>
           </CardActions>
         </Card>
@@ -176,6 +175,8 @@ const Profile  = () => {
     }
 
 export default Profile
+
+
 
 // return (
 //     <div style={{maxWidth:"550px",margin:"0px auto", color:'white'}}>
