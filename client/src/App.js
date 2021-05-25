@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import NavBar from './components/navBar/navBar';
 import { BrowserRouter as Router } from "react-router-dom"
@@ -8,6 +8,7 @@ import HomePage from "./components/homePage/homePage";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/Login/Login";
 import MainContainer from './components/mainContainer';
+import { UserContext } from './contexts/UserContext';
 
 function App() {
 
