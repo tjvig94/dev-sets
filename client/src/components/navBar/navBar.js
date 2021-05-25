@@ -46,15 +46,16 @@ function NavBar({ user }) {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleClose = (reason) => {
         setOpen(false);
+        console.log(reason)
     };
 
     return (
 
         <div className="topnav">
             <Link as={Link} to={HOME_PATH}>Home</Link>
-            <Link as={Link} to={LOGIN_PATH}>Log In</Link>            
+            <Link as={Link} to={LOGIN_PATH}>Log In</Link>
             <Link as={Link} to={USER_PATH}>Profile</Link>
 
             <input type="text" placeholder="Search.."></input>
@@ -75,7 +76,8 @@ function NavBar({ user }) {
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
-                            <Form user={user} />
+                            <Form user={user}
+                                onClose={handleClose} />
                         </div>
                     </Fade>
                 </Modal>
