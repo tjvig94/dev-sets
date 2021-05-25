@@ -10,8 +10,9 @@ const UserProvider = ({ children }) => {
         const parsedUser = JSON.parse(localStorage.getItem('user'));
         setUser(parsedUser);
     }
-    const logout = (user) => {
-        localStorage.removeItem('user')
+    const logout = (user) => {       
+        window.location.replace('/');
+        localStorage.removeItem('user');
         setUser();
     }
 
