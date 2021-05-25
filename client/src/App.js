@@ -14,25 +14,37 @@ function App() {
 
     const { user } = useContext(UserContext)
 
-  return (
-    <Router>
-        <NavBar />
-        <Switch>
-            <Route path={LOGIN_PATH} exact={true}>
-                <Login />                
-            </Route>
+    return (
+        <div>
+            <Router>
 
-            <Route path={HOME_PATH} exact={true}>
-                <HomePage />
-            </Route>
 
-            <Route path={USER_PATH} exact={true}>
-                <Profile />
-            </Route>
-        </Switch>
-        <MainContainer />
-    </Router>
-  )
+                <Switch>
+
+                    {!user ? (
+                        <Login />
+                    ) : (
+                        <>
+                            <Route path={LOGIN_PATH} exact={true}>
+                                <Login />
+                            </Route>
+
+                            <Route path={HOME_PATH} exact={true}>
+                                <NavBar />
+                                <HomePage />
+                            </Route>
+
+                            <Route path={USER_PATH} exact={true}>
+                                <NavBar />
+                                <Profile />
+                            </Route>
+                        </>)}
+                </Switch>
+                <MainContainer />
+            </Router>
+        </div>
+    )
 };
+
 
 export default App;
