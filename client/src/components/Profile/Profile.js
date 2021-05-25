@@ -1,16 +1,13 @@
-<<<<<<< HEAD
 import React,{useEffect,useState} from 'react'
 //import {UserContext} from '../../App'
 import firebase from 'firebase';
-=======
-import React, { useEffect, useState, useContext} from 'react'
-import { UserContext } from '../../contexts/UserContext';
->>>>>>> 75baeec219d4714c015d3bc06972d53f80831c5e
+
 
 const Profile  = () => {
     const [mypics,setPics] = useState("")
     const [image,setImage] = useState("")
-    const { user } = useContext(UserContext);
+    //const { user } = useContext(UserContext);
+    let user = firebase.auth().currentUser;
     
     useEffect(()=>{
        fetch('/api/profile/profilePic',{
@@ -19,7 +16,7 @@ const Profile  = () => {
            }
        }).then(res=>res.json())
        .then(result=>{
-           console.log('result');           ;
+           console.log('result');
            console.log(result);
            setPics(result.profilePic)
        })
@@ -53,7 +50,7 @@ const Profile  = () => {
         console.log('file')
         console.log(file)
         // Get current username
-        var user = firebase.auth().currentUser;
+//        var user = firebase.auth().currentUser;
 
         // Create a Storage Ref w/ username
         var storageRef = firebase.storage().ref('profilepics/' + file.name);//user + '/profilepics/' + file.name
@@ -102,11 +99,20 @@ const Profile  = () => {
         () => {
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            console.log('File available at', downloadURL);
-            //setImage(file);
-            setPics(downloadURL);
+            console.log('File available at', downloadURL);           
+            
+            user.updateProfile({
+                photoURL: downloadURL
+              }).then(function() {
+                // Update successful.
+                setPics(downloadURL);
+                console.log('it works');
+              }).catch(function(error) {
+                // An error happened.
+                console.log('error occured');
+              });
             });
-        }
+          }
         );
 
         // setImage(file)
@@ -128,7 +134,7 @@ const Profile  = () => {
            }}>
                <div>
                    <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-                   src={mypics}alt="profile"
+                   src={user.photoURL}alt="profile"
                    />
                  
                </div>
