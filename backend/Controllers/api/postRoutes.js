@@ -15,7 +15,6 @@ router.post('/', async (req, res) => {
             desc: desc,
             image: image
         })
-        console.log(newPost)
         res.status(200).json(newPost);    
     } catch (error) {
         res.status(500).json(error);
