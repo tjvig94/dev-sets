@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Button } from "@material-ui/core";
 import "./form.css";
 import storage from '../../../firebase';
 import axios from 'axios';
+import { UserContext } from '../../../contexts/UserContext';
 
-function Form({ user }) {
+function Form() {
 
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
+    const { user } = useContext(UserContext)
 
     const handleChange = (event) => {
         setFile(event.target.files[0])
@@ -24,7 +26,7 @@ function Form({ user }) {
         event.preventDefault();
 
         // send image to firebase storage, and get reference url
-        const uploadTask = await storage.ref(`/images/${file.name}`).put(file);     
+        await storage.ref(`/images/${file.name}`).put(file);     
         const imageUrl = await storage.ref('images').child(file.name).getDownloadURL();
         
         // create formdata to send to database 

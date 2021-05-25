@@ -1,26 +1,20 @@
+import React, { useContext } from 'react';
 import { Button } from '@material-ui/core';
-import React from 'react';
 import './Login.css';
 import { auth, provider } from '../../firebase';
-import { actionTypes } from '../../reducer';
-import { useStateValue } from '../../StateProvider';
+import { UserContext } from '../../contexts/UserContext';
 
 
 function Login() {
-  const [state, dispatch] = useStateValue();
+
+  const { user, login, logout } = useContext(UserContext);
 
   const signIn = () => {
     auth.signInWithPopup(provider)
       .then((result) => {
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-        });
-        console.log(result);
+        login(result.user)
       })
-      .catch((error) => {
-        alert(error.message);
-      });
+      .catch((error) => alert(error.message));
   };
   return (
     <div className="login">
@@ -32,9 +26,13 @@ function Login() {
         />
 
       </div>
+      {(user == null) ? (
       <Button type="submit" onClick={signIn}>
         Sign In
       </Button>
+        ) : (
+          <Button type="button" onClick={logout}>Logout</Button>
+        )}
     </div>
   );
 }

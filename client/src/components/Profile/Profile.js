@@ -1,10 +1,11 @@
-import React,{useEffect,useState} from 'react'
-//import {UserContext} from '../../App'
+import React, { useEffect, useState, useContext} from 'react'
+import { UserContext } from '../../contexts/UserContext';
 
-const Profile  = ()=>{
+const Profile  = () => {
     const [mypics,setPics] = useState("")
-   // const {state,dispatch} = useContext(UserContext)
     const [image,setImage] = useState("")
+    const { user } = useContext(UserContext);
+    
     useEffect(()=>{
        fetch('/api/profile/profilePic',{
            headers:{

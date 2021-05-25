@@ -14,7 +14,6 @@ import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
 import "./card.css";
 
-
 const useStyles = makeStyles((theme) => ({
     media: {
         height: 0,
@@ -54,14 +53,6 @@ export default function ContentCard(props) {
     const handleLike = () => {
 
     };
-
-    // const arrayBufferToBase64 = (buffer) => {
-    //     let binary = "";
-    //     let bytes = [].slice.call(new Uint8Array(buffer));
-    //     bytes.forEach(byte => binary += String.fromCharCode(byte));
-    //     return window.btoa(binary);
-    // }
-
 
     return (
         <Card className={clsx(classes.root, "postCard")} >
