@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { HOME_PATH, USER_PATH, LOGIN_PATH } from "../../views";
 import "./navBar.css";
@@ -8,6 +8,7 @@ import Form from "../homePage/form/form";
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from "@material-ui/core/Button";
+import { UserContext } from '../../contexts/UserContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,11 +38,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function NavBar({ user }) {
+function NavBar() {
 
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-
+    const { user, logout } = useContext(UserContext);
+    console.log(user)
     const handleOpen = () => {
         setOpen(true);
     };
@@ -50,16 +52,15 @@ function NavBar({ user }) {
         setOpen(false);
     };
 
-    return (
+    return(
 
         <div className="topnav">
-            <Link as={Link} to={HOME_PATH}>Home</Link>
-            <Link as={Link} to={LOGIN_PATH}>Log In</Link>            
-            <Link as={Link} to={USER_PATH}>Profile</Link>
-
-            <input type="text" placeholder="Search.."></input>
-
-            <div className={classes.root}>
+            {(user) ? (
+                <>
+                <Link as={Link} to={HOME_PATH}>Home</Link>
+                <Link as={Link} to={USER_PATH}>Profile</Link>
+                <Link type="button" onClick={logout}>Logout</Link>
+                <div className={classes.root}>
                 <Button type="button" onClick={handleOpen} className="uploadButton" >Upload+</Button>
                 <Modal
                     aria-labelledby="transition-modal-title"
@@ -75,11 +76,15 @@ function NavBar({ user }) {
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
-                            <Form user={user} />
+                            <Form user={user} onSubmit={handleClose} />
                         </div>
                     </Fade>
                 </Modal>
             </div>
+                </>
+            ) : (
+                <Link as={Link} to={LOGIN_PATH}>Log In</Link>
+            ) }            
         </div>
     )
 }

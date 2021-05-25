@@ -9,7 +9,7 @@ const firebaseConfig = {
    measurementId: "G-TCY16023V2"
  };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 const storage = firebase.storage();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
