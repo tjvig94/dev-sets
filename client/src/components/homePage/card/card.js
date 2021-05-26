@@ -14,7 +14,6 @@ import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
 import "./card.css";
 
-
 const useStyles = makeStyles((theme) => ({
     media: {
         height: 0,
@@ -54,24 +53,12 @@ export default function ContentCard(props) {
     const handleLike = () => {
 
     };
-
-    // const arrayBufferToBase64 = (buffer) => {
-    //     let binary = "";
-    //     let bytes = [].slice.call(new Uint8Array(buffer));
-    //     bytes.forEach(byte => binary += String.fromCharCode(byte));
-    //     return window.btoa(binary);
-    // }
-
-
     return (
         <Card className={clsx(classes.root, "postCard")} >
             <CardHeader
                 className={classes.style}
                 avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        M
-                        {/* if doesnt upload profile image, get first letter of username */}
-                    </Avatar>
+                    <Avatar aria-label="recipe" src={props.post.pfp} className={classes.avatar} />
                 }
                 action={
                     <IconButton aria-label="settings">

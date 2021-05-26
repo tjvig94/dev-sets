@@ -4,15 +4,25 @@ import { Container } from "@material-ui/core";
 import ContentCard from "./card/card";
 import API from '../../utils/API';
 
+function HomePage() {
 
-function HomePage({ user }) {
     const [cardArray, setCardArray] = useState([]);
 
     useEffect(() => {
         API.getPosts().then(res => {
-            setCardArray(res.data);
+            const sortedCards = sortByDate(res.data);
+            setCardArray(sortedCards);
         });
-    }, [cardArray]);
+    }, []);
+
+    function sortByDate(cardArray) {
+        return cardArray.map(card => {
+            const dateString = card.date.split('/').reverse().toString();
+            const dateTimestamp = Date.parse(dateString);
+            card.date = dateTimestamp;
+            return card;
+        }).sort((a, b) => b.date - a.date);
+    }
 
     return (
         <div>
