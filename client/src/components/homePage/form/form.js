@@ -5,7 +5,7 @@ import storage from '../../../firebase';
 import axios from 'axios';
 import { UserContext } from '../../../contexts/UserContext';
 
-function Form(onClose) {
+function Form({ onClose }) {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');

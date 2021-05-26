@@ -50,7 +50,6 @@ function NavBar() {
 
     const handleClose = (reason) => {
         setOpen(false);
-        console.log(reason)
     };
 
     return (
@@ -77,7 +76,7 @@ function NavBar() {
                         >
                             <Fade in={open}>
                                 <div className={classes.paper}>
-                                    <Form user={user} onSubmit={handleClose} />
+                                    <Form user={user} onClose={handleClose} />
                                 </div>
                             </Fade>
                         </Modal>
