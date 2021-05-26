@@ -10,7 +10,7 @@ function Form() {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
-    const { user } = useContext(UserContext)
+    const { user } = useContext(UserContext);
 
     const handleChange = (event) => {
         setFile(event.target.files[0])

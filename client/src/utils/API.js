@@ -9,5 +9,8 @@ export default {
     },
     deletePost: function(id) {
         return axios.delete(`/api/post/${id}`)
+    },
+    getUsers: function(name) {
+        return axios.get(`api/users/${name}`)
     }
 };

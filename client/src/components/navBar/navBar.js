@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { HOME_PATH, USER_PATH, LOGIN_PATH } from "../../views";
+import { HOME_PATH, USER_PATH, LOGIN_PATH, SEARCH_PATH } from "../../views";
 import "./navBar.css";
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -59,6 +59,7 @@ function NavBar() {
                 <>
                 <Link as={Link} to={HOME_PATH}>Home</Link>
                 <Link as={Link} to={USER_PATH}>Profile</Link>
+                <Link as={Link} to={SEARCH_PATH}>Search</Link> 
                 <Link type="button" onClick={logout} to={LOGIN_PATH}>Logout</Link>
                 <div className={classes.root}>
                 <Button type="button" onClick={handleOpen} className="uploadButton" >Upload+</Button>
