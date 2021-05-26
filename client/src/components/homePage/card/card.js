@@ -53,16 +53,12 @@ export default function ContentCard(props) {
     const handleLike = () => {
 
     };
-
     return (
         <Card className={clsx(classes.root, "postCard")} >
             <CardHeader
                 className={classes.style}
                 avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        M
-                        {/* if doesnt upload profile image, get first letter of username */}
-                    </Avatar>
+                    <Avatar aria-label="recipe" src={props.post.pfp} className={classes.avatar} />
                 }
                 action={
                     <IconButton aria-label="settings">

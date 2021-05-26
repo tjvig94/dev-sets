@@ -7,32 +7,40 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "./components/homePage/homePage";
 import Profile from "./components/Profile/Profile";
 import Login from "./components/Login/Login";
-import { UserContext } from './contexts/UserContext';
 import MainContainer from './components/mainContainer';
+import { UserContext } from './contexts/UserContext';
 
 function App() {
 
     const { user } = useContext(UserContext)
 
-  return (
-    <Router>
-        <NavBar />
-        <Switch>
-            <Route path={LOGIN_PATH} exact={true}>
-                <Login />                
-            </Route>
+    return (
+        <div>
+            <Router>
+                <Switch>
+                    {!user ? (
+                        <Login />
+                    ) : (
+                        <>
+                            <Route path={LOGIN_PATH} exact={true}>
+                                <Login />
+                            </Route>
 
-            <Route path={HOME_PATH} exact={true}>
-                <HomePage />
-            </Route>
+                            <Route path={HOME_PATH} exact={true}>
+                                <NavBar />
+                                <HomePage />
+                            </Route>
 
-            <Route path={USER_PATH} exact={true}>
-                <Profile />
-            </Route>
-        </Switch>
-        <MainContainer />
-    </Router>
-  )
+                            <Route path={USER_PATH} exact={true}>
+                                <NavBar />
+                                <Profile />
+                            </Route>
+                        </>)}
+                </Switch>
+                <MainContainer />
+            </Router>
+        </div>
+    )
 };
 
 export default App;

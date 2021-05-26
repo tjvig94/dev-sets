@@ -168,6 +168,7 @@ const Profile  = () => {
             <label for ="propic">Change Pic</label>
             <Button size="small" color="primary">
               
+<<<<<<< HEAD
             </Button>
           </CardActions>
         </Card>
@@ -176,6 +177,43 @@ const Profile  = () => {
 
 export default Profile
 
+=======
+           }}>
+               <div>
+                   <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
+                   src={user.photoURL}alt="profile"
+                   />
+                 
+               </div>
+               <div>
+                  
+                   <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
+                       <h6>{mypics} posts</h6>
+ 
+                   </div>
+
+               </div>
+           </div>
+        
+            <div className="file-field input-field" style={{margin:"10px"}}>
+            <div className="btn #64b5f6 blue darken-1">
+                <span>Update pic</span>
+                <input type="file" onChange={(e)=>updatePhoto(e.target.files[0])} />
+            </div>
+            <div className="file-path-wrapper">
+                <input className="file-path validate" type="text" />
+            </div>
+            </div>
+            </div>      
+           <div className="gallery">
+               {
+                //    mypics.map(item=>{
+                //        return(
+                //         <img key={item._id} className="item" src={item.photo} alt={item.title}/>  
+                //        )
+                //    })
+               }
+>>>>>>> d0f7e2a9e3406ab4b95a09d2485179eae1887d9d
 
 
 // return (

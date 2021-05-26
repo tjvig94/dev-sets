@@ -32,6 +32,8 @@ function Form() {
         // create formdata to send to database 
         const formData = {
             user: user.uid,
+            name: user.displayName,
+            pfp: user.photoURL,
             title: title,
             desc: desc,
             image: imageUrl
