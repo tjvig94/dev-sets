@@ -48,11 +48,11 @@ function NavBar() {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleClose = (reason) => {
         setOpen(false);
     };
 
-    return(
+    return (
 
         <div className="topnav">
             {(user) ? (
@@ -85,7 +85,7 @@ function NavBar() {
                 </>
             ) : (
                 <Link as={Link} to={LOGIN_PATH}>Log In</Link>
-            ) }            
+            )}
         </div>
     )
 }

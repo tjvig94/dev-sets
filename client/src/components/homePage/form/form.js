@@ -5,30 +5,35 @@ import storage from '../../../firebase';
 import axios from 'axios';
 import { UserContext } from '../../../contexts/UserContext';
 
-function Form() {
 
+
+function Form({ onClose }) {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const { user } = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (event) => {
         setFile(event.target.files[0])
-    }
+    };
+
     const changeTitle = (event) => {
         setTitle(event.target.value)
-    }
+    };
+
     const changeDesc = (event) => {
         setDesc(event.target.value)
-    }
+    };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        setIsLoading(true);
         // send image to firebase storage, and get reference url
-        await storage.ref(`/images/${file.name}`).put(file);     
+        await storage.ref(`/images/${file.name}`).put(file);
         const imageUrl = await storage.ref('images').child(file.name).getDownloadURL();
-        
+
         // create formdata to send to database 
         const formData = {
             user: user.uid,
@@ -38,8 +43,10 @@ function Form() {
             desc: desc,
             image: imageUrl
         }
+        setIsLoading(true)
         console.log(formData);
         await axios.post('/api/post', formData);
+        onClose(true);
     };
 
     return (
@@ -57,12 +64,18 @@ function Form() {
                     </textarea>
                 </div>
                 <div className="imgUploadButton">
-                    <label for="image" className="uploadButton">Upload Image:</label>
+                    <label for="image" className="uploadButton">Upload:</label>
                     <input type="file" id="image"
                         name="image" onChange={handleChange} required />
                 </div>
-                <div className="formButton">
-                    <Button type="submit" variant="contained" >Submit</Button>
+                <div className={"formButton"}>
+                    {!isLoading && <Button type="submit" variant="contained" onClick={handleSubmit}>
+                        Submit
+                        </Button>}
+
+                    {isLoading && <Button type="submit" variant="contained" disabled>
+                        <i class="fas fa-spinner fa-spin"></i>Uploading
+                        </Button>}
                 </div>
             </form>
         </div>
