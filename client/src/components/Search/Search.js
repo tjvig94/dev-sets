@@ -18,27 +18,20 @@ const Search = () => {
     const [postResults, setPostResults] = useState([]);
 
     useEffect(() => {
-        loadPosts();
-    }, [search]);
-
-    const loadPosts = () => {
-        API.getPosts().then(res => {
-            setPostResults(res.data);
-        });
-    };
+        console.log(userResults);
+        console.log(postResults);
+    }, [userResults, postResults])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(search)
+        
         // User Search
         const userSearch = await API.getUsers(search);
         setUserResults(userSearch.data);
-        console.log(userResults);
+
+        // Post Search
         const postSearch = await API.getPostsByTitle(search);
         setPostResults(postSearch.data);
-        console.log(postResults);
-        // console.log(userResults);
-        // console.log(postResults);
     }
 
     return(

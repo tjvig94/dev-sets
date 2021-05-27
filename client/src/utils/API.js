@@ -1,19 +1,43 @@
 import axios from 'axios';
 
 export default {
-    getPosts: function() {
-        return axios.get('/api/post');
+    getPosts: async function() {
+        try {
+            const posts = await axios.get('/api/post');
+            return posts;
+        } catch (error) {
+            console.log(error);
+        };
     },
-    getPost: function(id) {
-        return axios.get(`/api/post/${id}`)
+    getPost: async function(id) {
+        try {
+            const post = await axios.get(`/api/post/${id}`);
+            return post;
+        } catch (error) {
+            console.log(error)
+        };
     },
-    getPostsByTitle: function(search) {
-        return axios.get(`api/post/searching/${search}`)
+    getPostsByTitle: async function(search) {
+        try{
+            const posts = await axios.get(`api/post/searching/${search}`);
+            return posts;
+        } catch (error) {
+            console.log(error);
+        };
     },
-    deletePost: function(id) {
-        return axios.delete(`/api/post/${id}`)
+    deletePost: async function(id) {
+        try {
+            const response = axios.delete(`/api/post/${id}`);
+        } catch (error) {
+            console.log(error)
+        };
     },
-    getUsers: function(search) {
-        return axios.get(`/api/users/${search}`)
+    getUsers: async function(search) {
+        try {
+            const users = await axios.get(`/api/users/${search}`)
+            return users;
+        } catch (error) {
+            console.log(error)
+        };
     }
 };
