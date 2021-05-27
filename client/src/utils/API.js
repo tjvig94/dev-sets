@@ -7,6 +7,9 @@ export default {
     getPost: function(id) {
         return axios.get(`/api/post/${id}`)
     },
+    getPostsByTitle: function(search) {
+        return axios.get(`api/post/searching/${search}`)
+    },
     deletePost: function(id) {
         return axios.delete(`/api/post/${id}`)
     },

@@ -29,8 +29,16 @@ const Search = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await API.getUsers(search)
-        console.log(response.data)
+        console.log(search)
+        // User Search
+        const userSearch = await API.getUsers(search);
+        setUserResults(userSearch.data);
+        console.log(userResults);
+        const postSearch = await API.getPostsByTitle(search);
+        setPostResults(postSearch.data);
+        console.log(postResults);
+        // console.log(userResults);
+        // console.log(postResults);
     }
 
     return(
