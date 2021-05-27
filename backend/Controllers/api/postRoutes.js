@@ -42,6 +42,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// FIND POST BY TITLE
+router.get('/searching/:search', async (req, res) => {
+    try {
+        const posts = await db.Post.find({ title: req.params.search });
+        console.log(posts);
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json(error);
+        console.log(error);
+    }
+});
+
 // UPDATE
 router.put('/:id', async (req, res) => {
     try {

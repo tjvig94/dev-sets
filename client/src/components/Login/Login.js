@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 import './Login.css';
 import { auth, provider } from '../../firebase';
 import { UserContext } from '../../contexts/UserContext';
+import axios from 'axios';
 
 
 function Login() {
@@ -12,7 +13,14 @@ function Login() {
   const signIn = () => {
     auth.signInWithPopup(provider)
       .then((result) => {
-        login(result.user)
+        login(result.user);
+        const userdata = {
+          name: result.user.displayName,
+          email: result.user.email,
+          pfp: result.user.photoURL,
+          uid: result.user.uid
+        }
+        axios.post('/api/users/', userdata);
       })
       .catch((error) => alert(error.message));
   };
