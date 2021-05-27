@@ -16,18 +16,20 @@ function Form({ onClose }) {
 
     const handleChange = (event) => {
         setFile(event.target.files[0])
-    }
+    };
+
     const changeTitle = (event) => {
         setTitle(event.target.value)
-    }
+    };
+
     const changeDesc = (event) => {
         setDesc(event.target.value)
-    }
+    };
 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setIsLoading(true)
+        setIsLoading(true);
         // send image to firebase storage, and get reference url
         await storage.ref(`/images/${file.name}`).put(file);
         const imageUrl = await storage.ref('images').child(file.name).getDownloadURL();
@@ -72,7 +74,7 @@ function Form({ onClose }) {
                         </Button>}
 
                     {isLoading && <Button type="submit" variant="contained" disabled>
-                        <i class="fas fa-sync-alt"></i> Uploading
+                        <i class="fas fa-spinner fa-spin"></i>Uploading
                         </Button>}
                 </div>
             </form>
