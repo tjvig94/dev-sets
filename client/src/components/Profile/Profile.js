@@ -21,10 +21,12 @@ const Profile  = () => {
 
     const useStyles = makeStyles({
         root: {
-          maxWidth: 345,          
+          maxWidth: 345,   
+          margin: '10px',       
         },
         media: {
           height: 140,
+          
         },
       });
     
@@ -145,30 +147,32 @@ const Profile  = () => {
     }
      
       return (
-        <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image= {user.photoURL} //"/static/images/cards/contemplative-reptile.jpg"
-              title= {user.displayName}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {user.displayName}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Email address for {user.displayName} is {user.email}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <input type="file" id="propic" onChange={(e)=>updatePhoto(e.target.files[0])} hidden/>
-            <label for ="propic">Change Pic</label>
-            <Button size="small" color="primary">
-              
-            </Button>
-          </CardActions>
-        </Card>
+        <div class='box'>
+          <Card className={classes.root}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image= {user.photoURL} //"/static/images/cards/contemplative-reptile.jpg"
+                title= {user.displayName}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {user.displayName}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Email address for {user.displayName} is {user.email}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <input type="file" id="propic" onChange={(e)=>updatePhoto(e.target.files[0])} hidden/>
+              <label for ="propic">Change Pic</label>
+              <Button size="small" color="primary">
+                
+              </Button>
+            </CardActions>
+          </Card>
+        </div>
       );
     }
 
