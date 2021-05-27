@@ -48,43 +48,43 @@ function NavBar() {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleClose = (reason) => {
         setOpen(false);
     };
 
-    return(
+    return (
 
         <div className="topnav">
             {(user) ? (
                 <>
-                <Link as={Link} to={HOME_PATH}>Home</Link>
-                <Link as={Link} to={USER_PATH}>Profile</Link>
-                <Link type="button" onClick={logout} to={LOGIN_PATH}>Logout</Link>
-                <div className={classes.root}>
-                <Button type="button" onClick={handleOpen} className="uploadButton" >Upload+</Button>
-                <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className={classes.modal}
-                    open={open}
-                    onClose={handleClose}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                        timeout: 500,
-                    }}
-                >
-                    <Fade in={open}>
-                        <div className={classes.paper}>
-                            <Form user={user} onSubmit={handleClose} />
-                        </div>
-                    </Fade>
-                </Modal>
-            </div>
+                    <Link as={Link} to={HOME_PATH}>Home</Link>
+                    <Link as={Link} to={USER_PATH}>Profile</Link>
+                    <Link type="button" onClick={logout} to={LOGIN_PATH}>Logout</Link>
+                    <div className={classes.root}>
+                        <Button type="button" onClick={handleOpen} className="uploadButton" >Upload+</Button>
+                        <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            className={classes.modal}
+                            open={open}
+                            onClose={handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                                timeout: 500,
+                            }}
+                        >
+                            <Fade in={open}>
+                                <div className={classes.paper}>
+                                    <Form user={user} onClose={handleClose} />
+                                </div>
+                            </Fade>
+                        </Modal>
+                    </div>
                 </>
             ) : (
                 <Link as={Link} to={LOGIN_PATH}>Log In</Link>
-            ) }            
+            )}
         </div>
     )
 }
