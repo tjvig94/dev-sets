@@ -5,11 +5,14 @@ import storage from '../../../firebase';
 import axios from 'axios';
 import { UserContext } from '../../../contexts/UserContext';
 
+
+
 function Form({ onClose }) {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
-    const { user } = useContext(UserContext)
+    const { user } = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (event) => {
         setFile(event.target.files[0])
@@ -21,9 +24,10 @@ function Form({ onClose }) {
         setDesc(event.target.value)
     }
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        setIsLoading(true)
         // send image to firebase storage, and get reference url
         await storage.ref(`/images/${file.name}`).put(file);
         const imageUrl = await storage.ref('images').child(file.name).getDownloadURL();
@@ -37,6 +41,7 @@ function Form({ onClose }) {
             desc: desc,
             image: imageUrl
         }
+        setIsLoading(true)
         console.log(formData);
         await axios.post('/api/post', formData);
         onClose(true);
@@ -62,10 +67,13 @@ function Form({ onClose }) {
                         name="image" onChange={handleChange} required />
                 </div>
                 <div className={"formButton"}>
-                    <Button type="submit" variant="contained" >
-
+                    {!isLoading && <Button type="submit" variant="contained" onClick={handleSubmit}>
                         Submit
-                        </Button>
+                        </Button>}
+
+                    {isLoading && <Button type="submit" variant="contained" disabled>
+                        <i class="fas fa-sync-alt"></i> Uploading
+                        </Button>}
                 </div>
             </form>
         </div>
