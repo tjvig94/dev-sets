@@ -55,7 +55,8 @@ const Search = () => {
                         onChange={(event) => setSearch(event.target.value)}
                     />
                     <Button type="submit" variant="contained">Submit</Button>
-                </form>  
+                </form>
+                <h2>Check the console!</h2>  
             </Container>
         </div>
     )
