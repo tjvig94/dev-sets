@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './Search.css';
-import { Container, Input, Button } from '@material-ui/core';
+import { Container, Input, Button, Grid } from '@material-ui/core';
 import API from '../../utils/API';
-import axios from 'axios';
+import ContentCard from '../homePage/card/card';
+import UserCard from '../UserCard/UserCard';
 
 const useStyles = makeStyles({
     root: {
@@ -16,15 +17,18 @@ const Search = () => {
     const [search, setSearch] = useState('');
     const [userResults, setUserResults] = useState([]);
     const [postResults, setPostResults] = useState([]);
+    const [userCards, setUserCards] = useState([]);
+    const [postCards, setPostCards] = useState([]);
 
     useEffect(() => {
-        console.log(userResults);
-        console.log(postResults);
-    }, [userResults, postResults])
+        setPostCards(postResults);
+        setUserCards(userResults);
+    }, [userResults, postResults]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+        if (!search) return;
+
         // User Search
         const userSearch = await API.getUsers(search);
         setUserResults(userSearch.data);
@@ -47,10 +51,28 @@ const Search = () => {
                         name="search"
                         onChange={(event) => setSearch(event.target.value)}
                     />
-                    <Button type="submit" variant="contained">Submit</Button>
                 </form>
-                <h2>Check the console!</h2>  
             </Container>
+            <Container maxWidth="lg" className="homeContent">            
+                <Grid container spacing={2}>   
+                    <Grid item xs={4}>
+                        <h2>Posts</h2>
+                        {postCards.map(post => (
+                            <ContentCard post={post} key={post.id} />
+                        ))}
+                    </Grid>
+                    <Grid item xs={4}>
+                        <h2>Users</h2>
+                        {userCards.map(user => (
+                            <UserCard user={user} key={user.uid} />
+                        ))}
+                    </Grid>
+                    <Grid item xs={4}>
+                        <h2>Projects</h2>
+                        {/* Project cards will go here. */}
+                    </Grid>                   
+                </Grid>
+            </Container> 
         </div>
     )
 }

@@ -1,0 +1,10 @@
+.postCard {
+    margin: 10px;
+    width: 345px;
+    float: left;
+}
+
+.MuiCardMedia-img {
+    max-width: 450px;
+    max-height: 300px;
+}
