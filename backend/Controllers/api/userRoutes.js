@@ -7,9 +7,8 @@ const path = require('path');
 router.post('/', async (req, res) => {
     try {
         let user = await db.User.find({ uid: req.body.uid});
-        if (user) {
-            user = await db.User.create(req.body);
-        };
+        if (user.length !== 0) return res.status(200).json({ message: `${user[0].name} has an account already. Logging in!`});
+        user = await db.User.create(req.body);
         res.status(200).json(user); 
     } catch (error) {
         console.log(error);
