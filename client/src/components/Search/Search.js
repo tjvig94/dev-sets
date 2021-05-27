@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './Search.css';
-import { Container, Input } from '@material-ui/core';
+import { Container, Input, Button } from '@material-ui/core';
 import API from '../../utils/API';
+import axios from 'axios';
 
 const useStyles = makeStyles({
     root: {
@@ -18,8 +19,7 @@ const Search = () => {
 
     useEffect(() => {
         loadPosts();
-        loadUsers();
-    }, []);
+    }, [search]);
 
     const loadPosts = () => {
         API.getPosts().then(res => {
@@ -27,22 +27,27 @@ const Search = () => {
         });
     };
 
-    const loadUsers = () => {
-        API.getUsers().then(res => {
-            setUserResults(res.data)
-        });
-    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const response = await API.getUsers(search)
+        console.log(response.data)
+    }
 
     return(
         <div>
             <Container maxWidth="lg" className="homeContent">
                 <h1>Search for Users, DevSets, and Projects:</h1>
-                <Input 
-                    fullWidth="true"
-                    placeholder="Search"
-                    color="secondary"
-                    className={classes.root}
-                />
+                <form onSubmit={(search) => handleSubmit(search)} id="search-form">
+                    <Input 
+                        fullWidth="true"
+                        placeholder="Search"
+                        color="secondary"
+                        className={classes.root}
+                        name="search"
+                        onChange={(event) => setSearch(event.target.value)}
+                    />
+                    <Button type="submit" variant="contained">Submit</Button>
+                </form>  
             </Container>
         </div>
     )

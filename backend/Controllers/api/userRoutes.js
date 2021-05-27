@@ -16,10 +16,10 @@ router.post('/', async (req, res) => {
     }
 });
 
-// RETRIEVE
-router.get('/', async (req, res) => {
+// RETRIEVE USERS BY NAME
+router.get('/:name', async (req, res) => {
     try {
-        const users = await db.User.find({ name: req.body.name });
+        const users = await db.User.find({ name: req.params.name });
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json(error)
