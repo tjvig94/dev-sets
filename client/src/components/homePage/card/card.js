@@ -65,7 +65,7 @@ export default function ContentCard(props) {
                     </IconButton>
                 }
                 title={props.post.title}
-                subheader={props.post.desc}
+                subheader={props.post.name}
             />
             <CardMedia
                 className={classes.media}
@@ -80,8 +80,9 @@ export default function ContentCard(props) {
                 <Button type="button" onClick={handleOpen} className="detailButton">
                     Details
                 </Button>
-            
-                <Likes />
+
+                <Likes post={props.post} />
+
                 <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"

@@ -1,0 +1,10 @@
+
+/* font for headers */
+.modalTitleH2, .topnav, .uploadButton  {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* font for sub text */
+.modalP {
+    font-family: 'Lora', serif;
+}
