@@ -32,9 +32,17 @@ export default {
             console.log(error)
         };
     },
-    getUsers: async function(search) {
+    getUser: async function(search) {
         try {
             const users = await axios.get(`/api/users/${search}`)
+            return users;
+        } catch (error) {
+            console.log(error)
+        };
+    },
+    getUsers: async function() {
+        try {
+            const users = await axios.get('/api/users');
             return users;
         } catch (error) {
             console.log(error)

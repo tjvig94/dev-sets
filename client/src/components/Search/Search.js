@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './Search.css';
-import { Container, Input, Button, Grid } from '@material-ui/core';
+import { Container, Input, Grid } from '@material-ui/core';
 import API from '../../utils/API';
 import ContentCard from '../homePage/card/card';
 import UserCard from '../UserCard/UserCard';
@@ -9,45 +9,58 @@ import UserCard from '../UserCard/UserCard';
 const useStyles = makeStyles({
     root: {
         color: 'white'
+    },
+    searchbar: {
+        marginTop: '20px',
+        color: 'white'
     }
 });
 
 const Search = () => {
     const classes = useStyles();
     const [search, setSearch] = useState('');
-    const [userResults, setUserResults] = useState([]);
-    const [postResults, setPostResults] = useState([]);
     const [userCards, setUserCards] = useState([]);
     const [postCards, setPostCards] = useState([]);
 
     useEffect(() => {
-        setPostCards(postResults);
-        setUserCards(userResults);
-    }, [userResults, postResults]);
+        loadPosts();
+        loadUsers();
+    }, []);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (!search) return;
+    async function loadPosts() {
+        const posts = await API.getPosts();
+        setPostCards(posts.data);
+    };
 
-        // User Search
-        const userSearch = await API.getUsers(search);
-        setUserResults(userSearch.data);
+    async function loadUsers() {
+        const users = await API.getUsers();
+        setUserCards(users.data);
+    };
 
-        // Post Search
-        const postSearch = await API.getPostsByTitle(search);
-        setPostResults(postSearch.data);
-    }
+    function filterUsers(user) {
+        if (user.name.toLowerCase().includes(search.toLowerCase())) return user; 
+    };
+
+    function filterPosts(post) {
+        const lowerTitle = post.title.toLowerCase();
+        const lowerDesc = post.desc.toLowerCase();
+        const lowerSearch = search.toLowerCase();
+        if (lowerTitle.includes(lowerSearch) || lowerDesc.includes(lowerSearch)) return post;
+    };
 
     return(
         <div>
             <Container maxWidth="lg" className="homeContent">
                 <h1>Search for Users, DevSets, and Projects:</h1>
-                <form onSubmit={(search) => handleSubmit(search)} id="search-form">
+                <form
+                    onChange={event => {setSearch(event.target.value)}}
+                    id="search-form"
+                >
                     <Input 
                         fullWidth="true"
                         placeholder="Search"
                         color="secondary"
-                        className={classes.root}
+                        className={classes.searchbar}
                         name="search"
                         onChange={(event) => setSearch(event.target.value)}
                     />
@@ -57,13 +70,13 @@ const Search = () => {
                 <Grid container spacing={2}>   
                     <Grid item xs={4}>
                         <h2>Posts</h2>
-                        {postCards.map(post => (
+                        {postCards.filter(post => filterPosts(post)).map(post => (
                             <ContentCard post={post} key={post.id} />
                         ))}
                     </Grid>
                     <Grid item xs={4}>
                         <h2>Users</h2>
-                        {userCards.map(user => (
+                        {userCards.filter(user => filterUsers(user)).map(user => (
                             <UserCard user={user} key={user.uid} />
                         ))}
                     </Grid>
