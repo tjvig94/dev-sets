@@ -46,7 +46,6 @@ router.get('/:id', async (req, res) => {
 router.get('/searching/:search', async (req, res) => {
     try {
         const posts = await db.Post.find({ title: req.params.search });
-        console.log(posts);
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json(error);
