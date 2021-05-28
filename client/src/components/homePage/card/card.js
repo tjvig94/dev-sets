@@ -13,8 +13,7 @@ import { Modal, Button } from "@material-ui/core";
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
 import "./card.css";
-import firebase from 'firebase'
-import Likes from '../../Likes/Likes'
+import Likes from '../../Likes/Likes';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
     },
     paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
+        backgroundColor: "rgba(203,196,179, 0.8)",
+        border: '1px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
