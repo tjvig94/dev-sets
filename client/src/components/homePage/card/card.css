@@ -26,3 +26,10 @@ soon as login is successful return user obj in ap response
 store in global state(context)
 have access to the user throughout the app
  */
+
+ /* 
+ generate view endpoint for post
+ share that url location
+ to have post show as a card
+ special html meta data 
+ */

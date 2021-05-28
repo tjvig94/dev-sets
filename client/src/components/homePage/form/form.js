@@ -6,11 +6,6 @@ import axios from 'axios';
 import { UserContext } from '../../../contexts/UserContext';
 
 
-
-function Form() {
-
-
-
 function Form({ onClose }) {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
@@ -36,32 +31,22 @@ function Form({ onClose }) {
 
         //Create uuid 
         const imageRef = db.collection('images').doc();
-        
+        // npm nano id or uuid if else, to generate id beforehand
+
         // send image to firebase storage, and get reference url
         await storage.ref(`/images/${imageRef.id}_${file.name}`).put(file);
         const imageUrl = await storage.ref('images').child(imageRef.id + '_' + file.name).getDownloadURL();
-
-        const imageInfo = {
-            user: user.uid,
-            title: title,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            image: imageUrl,
-            likes: 0,
-        };
-
-         await imageRef.set(imageInfo)
-
-        setIsLoading(true);
-     
 
         // create formdata to send to database 
         const formData = {
             user: user.uid,
             name: user.displayName,
             pfp: user.photoURL,
+            fileName: file.name,
             title: title,
             desc: desc,
-            image: imageUrl
+            image: imageUrl,
+            likes: 0
         }
         setIsLoading(true)
         console.log(formData);
@@ -101,5 +86,5 @@ function Form({ onClose }) {
         </div>
     )
 }
-}
+
 export default Form;
