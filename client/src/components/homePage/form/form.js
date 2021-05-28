@@ -52,9 +52,7 @@ function Form({ onClose }) {
          await imageRef.set(imageInfo)
 
         setIsLoading(true);
-        // send image to firebase storage, and get reference url
-        await storage.ref(`/images/${file.name}`).put(file);
-        const imageUrl = await storage.ref('images').child(file.name).getDownloadURL();
+     
 
         // create formdata to send to database 
         const formData = {
@@ -103,5 +101,5 @@ function Form({ onClose }) {
         </div>
     )
 }
-
+}
 export default Form;
