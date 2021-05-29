@@ -9,12 +9,12 @@
  
  .login > button {
    width: 300px;
-   background-color:  #52942b;
- color: #eff2f5;
+   background-color:  #cbc4b3;
+   color: #171717;
    font-weight: 900;
  }
  
- login > button:hover {
+ .login > button:hover {
    background-color: #52942b;
    color: #ffffff;
  }
