@@ -9,7 +9,9 @@ const postSchema = new Schema({
     user: { type: String, required: true },
     name: { type: String },
     pfp: { type: String },
-    date: {type: Date, default: Date.now}
+    date: { type: Date, default: Date.now },
+    likes: { type: Number, default: 0 },
+    fileName: { type: String }
 });
 
 const Post = mongoose.model("Post", postSchema);

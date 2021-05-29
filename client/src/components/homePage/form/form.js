@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Button } from "@material-ui/core";
 import "./form.css";
-import storage from '../../../firebase';
+import storage, { db, firebase } from '../../../firebase';
 import axios from 'axios';
 import { UserContext } from '../../../contexts/UserContext';
-
 
 
 function Form({ onClose }) {
@@ -29,19 +28,25 @@ function Form({ onClose }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setIsLoading(true);
+
+        //Create uuid 
+        const imageRef = db.collection('images').doc();
+        // npm nano id or uuid if else, to generate id beforehand
+
         // send image to firebase storage, and get reference url
-        await storage.ref(`/images/${file.name}`).put(file);
-        const imageUrl = await storage.ref('images').child(file.name).getDownloadURL();
+        await storage.ref(`/images/${imageRef.id}_${file.name}`).put(file);
+        const imageUrl = await storage.ref('images').child(imageRef.id + '_' + file.name).getDownloadURL();
 
         // create formdata to send to database 
         const formData = {
             user: user.uid,
             name: user.displayName,
             pfp: user.photoURL,
+            fileName: file.name,
             title: title,
             desc: desc,
-            image: imageUrl
+            image: imageUrl,
+            likes: 0
         }
         setIsLoading(true)
         console.log(formData);
