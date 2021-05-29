@@ -5,8 +5,8 @@
 }
 
 .MuiCardMedia-img {
-    max-width: 450px;
-    max-height: 300px;
+    max-width: 700px;
+    max-height: 600px;
 }
 
 .detailButton {
@@ -25,4 +25,11 @@ user context at root of app
 soon as login is successful return user obj in ap response
 store in global state(context)
 have access to the user throughout the app
+ */
+
+ /* 
+ generate view endpoint for post
+ share that url location
+ to have post show as a card
+ special html meta data 
  */

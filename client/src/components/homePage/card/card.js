@@ -13,6 +13,8 @@ import { Modal, Button } from "@material-ui/core";
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
 import "./card.css";
+import Likes from '../../Likes/Likes';
+
 
 const useStyles = makeStyles((theme) => ({
     media: {
@@ -28,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
     },
     paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
+        backgroundColor: "rgba(203,196,179, 0.8)",
+        border: '1px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
@@ -50,9 +52,6 @@ export default function ContentCard(props) {
         setOpen(false);
     };
 
-    const handleLike = () => {
-
-    };
     return (
         <Card className={clsx(classes.root, "postCard")} >
             <CardHeader
@@ -65,7 +64,7 @@ export default function ContentCard(props) {
                     </IconButton>
                 }
                 title={props.post.title}
-                subheader={props.post.desc}
+                subheader={props.post.name}
             />
             <CardMedia
                 className={classes.media}
@@ -77,18 +76,12 @@ export default function ContentCard(props) {
                 disableSpacing
             >
 
-                {/* <IconButton aria-label="add to favorites">
-
-                    <FavoriteIcon onClick={handleLike} className="favoriteButton" />
-
-                </IconButton> */}
-                {/* 
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton> */}
                 <Button type="button" onClick={handleOpen} className="detailButton">
                     Details
                 </Button>
+
+                <Likes post={props.post} />
+
                 <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
