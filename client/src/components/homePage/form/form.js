@@ -6,7 +6,8 @@ import axios from 'axios';
 import { UserContext } from '../../../contexts/UserContext';
 
 
-function Form({ onClose }) {
+
+function Form({ onSubmit }) {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
@@ -51,7 +52,7 @@ function Form({ onClose }) {
         setIsLoading(true)
         console.log(formData);
         await axios.post('/api/post', formData);
-        onClose(true);
+        onSubmit(true);
     };
 
     return (
