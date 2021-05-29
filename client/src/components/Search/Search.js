@@ -28,7 +28,7 @@ const Search = () => {
     }, []);
 
     async function loadPosts() {
-        const posts = await API.getPosts();
+        const posts = await API.getSomePosts();
         setPostCards(posts.data);
     };
 
@@ -51,7 +51,7 @@ const Search = () => {
     return(
         <div>
             <Container maxWidth="lg" className="homeContent">
-                <h1>Search for Users, DevSets, and Projects:</h1>
+                <h1>Search for Users and DevSets</h1>
                 <form
                     onChange={event => {setSearch(event.target.value)}}
                     id="search-form"
@@ -67,23 +67,19 @@ const Search = () => {
                 </form>
             </Container>
             <Container maxWidth="lg" className="homeContent">            
-                <Grid container spacing={2}>   
-                    <Grid item xs={4}>
-                        <h2>Posts</h2>
-                        {postCards.filter(post => filterPosts(post)).map(post => (
-                            <ContentCard post={post} key={post.id} />
-                        ))}
-                    </Grid>
-                    <Grid item xs={4}>
+                <Grid container spacing={2}>  
+                    <Grid item xs={12} lg={6}>
                         <h2>Users</h2>
                         {userCards.filter(user => filterUsers(user)).map(user => (
                             <UserCard user={user} key={user.uid} />
                         ))}
-                    </Grid>
-                    <Grid item xs={4}>
-                        <h2>Projects</h2>
-                        {/* Project cards will go here. */}
-                    </Grid>                   
+                    </Grid>   
+                    <Grid item xs={12} lg={6}>
+                        <h2>Posts</h2>
+                        {postCards.filter(post => filterPosts(post)).map(post => (
+                            <ContentCard post={post} key={post.id} />
+                        ))}
+                    </Grid>                                  
                 </Grid>
             </Container> 
         </div>

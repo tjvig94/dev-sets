@@ -17,6 +17,14 @@ export default {
             console.log(error)
         };
     },
+    getSomePosts: async function() {
+        try {
+            const posts = await axios.get('/api/post/some/some');
+            return posts;
+        } catch (error) {
+            console.log(error);
+        }
+    },
     getPostsByTitle: async function(search) {
         try{
             const posts = await axios.get(`api/post/searching/${search}`);

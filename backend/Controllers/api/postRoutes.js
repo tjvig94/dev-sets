@@ -42,6 +42,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// READ SOME POSTS
+router.get('/some/some', async (req, res) => {
+    try {
+        const posts = await db.Post.find({}).limit(5);
+        // console.log('searching')
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json(error);
+        console.log(error);
+    }
+});
+
 // FIND POST BY TITLE
 router.get('/searching/:search', async (req, res) => {
     try {
