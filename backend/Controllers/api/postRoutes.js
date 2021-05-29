@@ -6,15 +6,7 @@ const path = require('path');
 // CREATE
 router.post('/', async (req, res) => {
     try {       
-        const { desc, name, pfp, title, user, image } = req.body;
-        const newPost = await db.Post.create({ 
-            user: user,
-            name: name,
-            pfp: pfp,
-            title: title, 
-            desc: desc,
-            image: image
-        })
+        const newPost = await db.Post.create(req.body)
         res.status(200).json(newPost);    
     } catch (error) {
         res.status(500).json(error);
@@ -32,21 +24,20 @@ router.get('/', async (req, res) => {
     } 
 });
 
-// READ ONE POST
-router.get('/:id', async (req, res) => {
-    try {
-        db.Post.findById({ _id: req.params.id }).then(post => res.status(200).json(post))
-    } catch (error) {
-        res.status(500).json(error);
-        console.log(error);
-    }
-});
+// READ ONE POST BY ID
+// router.get('/:id', async (req, res) => {
+//     try {
+//         db.Post.findById({ _id: req.params.id }).then(post => res.status(200).json(post))
+//     } catch (error) {
+//         res.status(500).json(error);
+//         console.log(error);
+//     }
+// });
 
 // READ SOME POSTS
 router.get('/some/some', async (req, res) => {
     try {
         const posts = await db.Post.find({}).limit(5);
-        // console.log('searching')
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json(error);
@@ -54,10 +45,13 @@ router.get('/some/some', async (req, res) => {
     }
 });
 
-// FIND POST BY TITLE
-router.get('/searching/:search', async (req, res) => {
+// SEARCH POSTS
+router.get('/:search', async (req, res) => {
     try {
-        const posts = await db.Post.find({ title: req.params.search });
+        const postsByTitle = await db.Post.find({ title: { $regex:  req.params.search, $options: 'i' } });
+        const postsByDesc = await db.Post.find({ desc: { $regex: req.params.search, $options: 'i' } });
+        const postsByUser = await db.Post.find({ name: { $regex: req.params.search, $options: 'i' } });
+        const posts = postsByTitle.concat(postsByDesc).concat(postsByUser).slice(0, 5);
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json(error);

@@ -26,12 +26,23 @@ router.get('/', async (req, res) => {
     }
 })
 
-// RETRIEVE USERS BY NAME
-router.get('/:name', async (req, res) => {
+// RETRIEVE SOME USERS
+router.get('/some', async (req, res) => {
     try {
-        const users = await db.User.find({ name: req.params.name });
+        const users = await db.User.find({}).limit(10);
         res.status(200).json(users);
     } catch (error) {
+        console.log(error)
+    }
+})
+
+// RETRIEVE USERS BY NAME
+router.get('/:search', async (req, res) => {
+    try {
+        const users = await db.User.find({ name: { $regex: req.params.search, $options: 'i' } }).exec();
+        res.status(200).json(users);
+    } catch (error) {
+        console.log(error);
         res.status(500).json(error)
     }
 });
