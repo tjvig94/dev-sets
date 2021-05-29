@@ -33,20 +33,24 @@ const Search = () => {
     };
 
     async function loadUsers() {
-        const users = await API.getUsers();
+        const users = await API.getSomeUsers();
         setUserCards(users.data);
     };
 
-    function filterUsers(user) {
-        if (user.name.toLowerCase().includes(search.toLowerCase())) return user; 
-    };
-
-    function filterPosts(post) {
-        const lowerTitle = post.title.toLowerCase();
-        const lowerDesc = post.desc.toLowerCase();
-        const lowerSearch = search.toLowerCase();
-        if (lowerTitle.includes(lowerSearch) || lowerDesc.includes(lowerSearch)) return post;
-    };
+    // TESTING //
+    async function searchPostsAndUsers(event) {
+        event.preventDefault();
+        try {
+            const postSearch = await API.searchPosts(search);
+            const userSearch = await API.searchUser(search);
+            setPostCards(postSearch.data);
+            setUserCards(userSearch.data);
+            console.log(userSearch.data);
+            console.log(postSearch.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return(
         <div>
@@ -54,6 +58,7 @@ const Search = () => {
                 <h1>Search for Users and DevSets</h1>
                 <form
                     onChange={event => {setSearch(event.target.value)}}
+                    onSubmit={event => {searchPostsAndUsers(event)}}
                     id="search-form"
                 >
                     <Input 
@@ -70,13 +75,13 @@ const Search = () => {
                 <Grid container spacing={2}>  
                     <Grid item xs={12} lg={6}>
                         <h2>Users</h2>
-                        {userCards.filter(user => filterUsers(user)).map(user => (
+                        {userCards.map(user => (
                             <UserCard user={user} key={user.uid} />
                         ))}
                     </Grid>   
                     <Grid item xs={12} lg={6}>
                         <h2>Posts</h2>
-                        {postCards.filter(post => filterPosts(post)).map(post => (
+                        {postCards.map(post => (
                             <ContentCard post={post} key={post.id} />
                         ))}
                     </Grid>                                  
