@@ -1,5 +1,6 @@
 .login {
-   padding: 50px;
+   padding-top: 50px;
+   padding-bottom: 50px;
    display: grid;
    place-items: center;
    background-color: #171717;
