@@ -37,17 +37,6 @@ const Search = () => {
         setUserCards(users.data);
     };
 
-    // function filterUsers(user) {
-    //     if (user.name.toLowerCase().includes(search.toLowerCase())) return user; 
-    // };
-
-    // function filterPosts(post) {
-    //     const lowerTitle = post.title.toLowerCase();
-    //     const lowerDesc = post.desc.toLowerCase();
-    //     const lowerSearch = search.toLowerCase();
-    //     if (lowerTitle.includes(lowerSearch) || lowerDesc.includes(lowerSearch)) return post;
-    // };
-
     // TESTING //
     async function searchPostsAndUsers(event) {
         event.preventDefault();
