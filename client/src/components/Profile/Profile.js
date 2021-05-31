@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 //import {UserContext} from '../../App'
 import firebase from 'firebase';
-import { colors, FormHelperText } from '@material-ui/core';
+import { CardHeader, colors, FormHelperText } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -11,11 +11,70 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import ContentCard from "../homePage/card/card.js";
+import { Container } from "@material-ui/core";
+import API from '../../utils/API';
 
+//can use mongodb to do user auth 
+//need to associate user to mongodb data images
 
 const Profile  = () => {
     const [mypics,setPics] = useState("")
     const [image,setImage] = useState("")
+
+    const [cardArray, setCardArray] = useState([]);
+
+    useEffect(() => {
+      API.getPosts().then(res => {
+        console.log('res');
+        console.log(res);
+        const sortedCards = sortByDate(res.data);
+        setCardArray(sortedCards);
+      });
+    }, []);
+
+    function sortByDate(cardArray) {
+      
+      // var card = cardArray.map(card => card.name === user.displayName);
+      // return card;
+      console.log('cardArray');
+      console.log(cardArray);
+    let card = [];
+    for (let i = 0 ; i < cardArray.length; i++){
+     console.log(cardArray[i].name);
+      if (cardArray[i].name === user.displayName){
+        card.push(cardArray[i]);
+      }
+    }
+    return card;
+    };
+
+
+
+  //   return cardArray.map(card => {
+  //     const who = user.displayName;
+  //     console.log(who);
+  //     console.log('cardarray');
+  //     console.log(cardArray);
+  //     //loop thru card array and find matches for user and card.name post match only.
+
+  //     const newCard = card.every(who === card.name);
+  //     return newCard;
+  //     // cardArray.forEach(element => {
+  //     //   console.log('element');
+  //     //   console.log(element);
+  //     // });
+  //  // const dateString = card.date.split('/').reverse().toString();
+  //   console.log('card');
+  //   console.log(card);
+    //const dateTimestamp = Date.parse(dateString);
+    //card.date = dateTimestamp;
+    //return card;
+
+
+
+
+   
     //const { user } = useContext(UserContext);
     let user = firebase.auth().currentUser;
 
@@ -26,48 +85,47 @@ const Profile  = () => {
         },
         media: {
           height: 140,
-          
         },
       });
     
     const classes = useStyles();
 
-    useEffect(()=>{
-       fetch('/api/profile/profilePic',{
-           headers:{
-               "Authorization":"Bearer "+localStorage.getItem("jwt")//put in session storage for closing tab and throwing them out.
-           }
-       }).then(res=>res.json())
-       .then(result=>{
-           console.log('result');
-           console.log(result);
-           setPics(result.profilePic)
-       })
-    },[])
-    useEffect(()=>{
-       if(image){
-        const data = new FormData()
-        data.append("file",image)
-        data.append("cloud_name","cnq")       
-           fetch('/updatepic',{
-               method:"post",
-               headers:{
-                   "Content-Type":"application/json",
-                   "Authorization":"Bearer "+localStorage.getItem("jwt")
-               },
-               body:data
-           }).then(res=>res.json())
-           .then(result=>{
-               console.log(result)
-             //  localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
-             //  dispatch({type:"UPDATEPIC",payload:result.pic})
-               //window.location.reload()
-           })
-        .catch(err=>{
-            console.log(err)
-        })
-       }
-    }, [image])
+    // useEffect(()=>{
+    //    fetch('/api/profile/profilePic',{
+    //        headers:{
+    //            "Authorization":"Bearer "+localStorage.getItem("jwt")//put in session storage for closing tab and throwing them out.
+    //        }
+    //    }).then(res=>res.json())
+    //    .then(result=>{
+    //        console.log('result');
+    //        console.log(result);
+    //        setPics(result.profilePic)
+    //    })
+    // },[])
+    // useEffect(()=>{
+    //    if(image){
+    //     const data = new FormData()
+    //     data.append("file",image)
+    //     data.append("cloud_name","cnq")       
+    //        fetch('/updatepic',{
+    //            method:"post",
+    //            headers:{
+    //                "Content-Type":"application/json",
+    //                "Authorization":"Bearer "+localStorage.getItem("jwt")
+    //            },
+    //            body:data
+    //        }).then(res=>res.json())
+    //        .then(result=>{
+    //            console.log(result)
+    //          //  localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
+    //          //  dispatch({type:"UPDATEPIC",payload:result.pic})
+    //            //window.location.reload()
+    //        })
+    //     .catch(err=>{
+    //         console.log(err)
+    //     })
+    //    }
+    // }, [image])
     const updatePhoto = (file)=>{
         
         console.log('file')
@@ -172,6 +230,13 @@ const Profile  = () => {
               </Button>
             </CardActions>
           </Card>
+          <div>
+            <Container maxWidth="lg" className="homeContent">
+                {cardArray.map(post => (
+                    <ContentCard post={post} key={post.id} />
+                ))}
+            </Container>
+          </div>
         </div>
       );
     }
