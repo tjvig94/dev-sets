@@ -17,9 +17,17 @@ export default {
             console.log(error)
         };
     },
-    getPostsByTitle: async function(search) {
+    getSomePosts: async function() {
+        try {
+            const posts = await axios.get('/api/post/some/some');
+            return posts;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    searchPosts: async function(search) {
         try{
-            const posts = await axios.get(`api/post/searching/${search}`);
+            const posts = await axios.get(`api/post/${search}`);
             return posts;
         } catch (error) {
             console.log(error);
@@ -27,17 +35,33 @@ export default {
     },
     deletePost: async function(id) {
         try {
-            const response = axios.delete(`/api/post/${id}`);
+            await axios.delete(`/api/post/${id}`);
         } catch (error) {
             console.log(error)
         };
     },
-    getUsers: async function(search) {
+    searchUser: async function(search) {
         try {
             const users = await axios.get(`/api/users/${search}`)
             return users;
         } catch (error) {
             console.log(error)
         };
+    },
+    getUsers: async function() {
+        try {
+            const users = await axios.get('/api/users');
+            return users;
+        } catch (error) {
+            console.log(error)
+        };
+    },
+    getSomeUsers: async function() {
+        try {
+            const users = await axios.get('/api/users/some/');
+            return users;
+        } catch (error) {
+            console.log(error);
+        }
     }
 };

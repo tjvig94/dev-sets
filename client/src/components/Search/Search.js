@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './Search.css';
-import { Container, Input, Button, Grid } from '@material-ui/core';
+import { Container, Input, Grid } from '@material-ui/core';
 import API from '../../utils/API';
 import ContentCard from '../homePage/card/card';
 import UserCard from '../UserCard/UserCard';
@@ -9,68 +9,82 @@ import UserCard from '../UserCard/UserCard';
 const useStyles = makeStyles({
     root: {
         color: 'white'
+    },
+    searchbar: {
+        marginTop: '20px',
+        color: 'white'
     }
 });
 
 const Search = () => {
     const classes = useStyles();
     const [search, setSearch] = useState('');
-    const [userResults, setUserResults] = useState([]);
-    const [postResults, setPostResults] = useState([]);
     const [userCards, setUserCards] = useState([]);
     const [postCards, setPostCards] = useState([]);
 
     useEffect(() => {
-        setPostCards(postResults);
-        setUserCards(userResults);
-    }, [userResults, postResults]);
+        loadPosts();
+        loadUsers();
+    }, []);
 
-    const handleSubmit = async (event) => {
+    async function loadPosts() {
+        const posts = await API.getSomePosts();
+        setPostCards(posts.data);
+    };
+
+    async function loadUsers() {
+        const users = await API.getSomeUsers();
+        setUserCards(users.data);
+    };
+
+    // TESTING //
+    async function searchPostsAndUsers(event) {
         event.preventDefault();
-        if (!search) return;
-
-        // User Search
-        const userSearch = await API.getUsers(search);
-        setUserResults(userSearch.data);
-
-        // Post Search
-        const postSearch = await API.getPostsByTitle(search);
-        setPostResults(postSearch.data);
+        try {
+            const postSearch = await API.searchPosts(search);
+            const userSearch = await API.searchUser(search);
+            setPostCards(postSearch.data);
+            setUserCards(userSearch.data);
+            console.log(userSearch.data);
+            console.log(postSearch.data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return(
         <div>
             <Container maxWidth="lg" className="homeContent">
-                <h1>Search for Users, DevSets, and Projects:</h1>
-                <form onSubmit={(search) => handleSubmit(search)} id="search-form">
+                <h1>Search for Users and DevSets</h1>
+                <form
+                    onChange={event => {setSearch(event.target.value)}}
+                    onSubmit={event => {searchPostsAndUsers(event)}}
+                    id="search-form"
+                >
                     <Input 
                         fullWidth="true"
                         placeholder="Search"
                         color="secondary"
-                        className={classes.root}
+                        className={classes.searchbar}
                         name="search"
                         onChange={(event) => setSearch(event.target.value)}
                     />
                 </form>
             </Container>
             <Container maxWidth="lg" className="homeContent">            
-                <Grid container spacing={2}>   
-                    <Grid item xs={4}>
-                        <h2>Posts</h2>
-                        {postCards.map(post => (
-                            <ContentCard post={post} key={post.id} />
-                        ))}
-                    </Grid>
-                    <Grid item xs={4}>
+                <Grid container spacing={2}>  
+                    <Grid item xs={12} lg={6}>
                         <h2>Users</h2>
                         {userCards.map(user => (
                             <UserCard user={user} key={user.uid} />
                         ))}
-                    </Grid>
-                    <Grid item xs={4}>
-                        <h2>Projects</h2>
-                        {/* Project cards will go here. */}
-                    </Grid>                   
+                    </Grid>   
+                    <Grid item xs={12} lg={6}>
+                        <h2>Posts</h2>
+                        {postCards.map(post => (
+                            <ContentCard post={post} key={post.id} />
+                        ))}
+                    </Grid>                                  
                 </Grid>
             </Container> 
         </div>
