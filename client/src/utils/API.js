@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axios';
 
 export default {
     getPosts: async function() {
@@ -27,7 +27,7 @@ export default {
     },
     searchPosts: async function(search) {
         try{
-            const posts = await axios.get(`api/post/${search}`);
+            const posts = await axios.get(`/api/post/${search}`);
             return posts;
         } catch (error) {
             console.log(error);
