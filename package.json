@@ -5,5 +5,8 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "description": ""
+    "description": "",
+    "scripts": {
+        "start": "node server.js"
+    }
 }
