@@ -4,6 +4,7 @@ import './Login.css';
 import { auth, provider } from '../../firebase';
 import { UserContext } from '../../contexts/UserContext';
 import axios from 'axios';
+import devSet from "./images/dev.png"
 
 
 function Login() {
@@ -29,18 +30,18 @@ function Login() {
       <div className="login__logo">
 
         <img
-          src="./images/dev.png"
+          src={devSet}
           alt="dev-logo"
         />
 
       </div>
       {(user == null) ? (
-      <Button type="submit" onClick={signIn}>
-        Sign In
-      </Button>
-        ) : (
-          <Button type="button" onClick={logout}>Logout</Button>
-        )}
+        <Button type="submit" onClick={signIn}>
+          Sign In
+        </Button>
+      ) : (
+        <Button type="button" onClick={logout}>Logout</Button>
+      )}
     </div>
   );
 }
