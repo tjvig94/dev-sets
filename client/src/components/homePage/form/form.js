@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button } from "@material-ui/core";
 import "./form.css";
 import storage, { db, firebase } from '../../../firebase';
-import axios from 'axios';
+import axios from '../../../utils/axios';
 import { UserContext } from '../../../contexts/UserContext';
 
 
