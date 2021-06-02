@@ -2,8 +2,7 @@
   "name": "dev-sets1",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
-  "homepage": "http://tjvig94.github.io/dev-sets/",
+  "homepage": "https://devsets-d95a1.web.app/",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
