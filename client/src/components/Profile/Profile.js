@@ -2,7 +2,6 @@ import React,{useEffect,useState} from 'react'
 //import {UserContext} from '../../App'
 import firebase from 'firebase';
 import { CardHeader, colors, FormHelperText } from '@material-ui/core';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -14,70 +13,78 @@ import Typography from '@material-ui/core/Typography';
 import ContentCard from "../homePage/card/card.js";
 import { Container } from "@material-ui/core";
 import API from '../../utils/API';
+//for teh form dialog for getting github info
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+//dark mode???
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Switch from '@material-ui/core/Switch';
+
 
 //can use mongodb to do user auth 
 //need to associate user to mongodb data images
-
 const Profile  = () => {
     const [mypics,setPics] = useState("")
     const [image,setImage] = useState("")
-
     const [cardArray, setCardArray] = useState([]);
-
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
+    function handleSubmit(e){
+      e.preventDefault();
+      //form data constructor
+      const githubAddress = new FormData(e.target)//gethubAddress is the entire form data object use molter to pick it apart and get the address of github
+      const githubName = githubAddress.get('GitHubAddress')
+      //maybe submnit a post req 
+      //form data object is designed to not have to extract out 
+      window.localStorage.setItem('github', githubName)
+    }
+    //dark mode
+    //only change if the state changes  
+    //lifiting the state
+      const [darkState, setDarkState] = useState(JSON.parse(window.localStorage.getItem('mode')));
+      const palletType = darkState ? "dark" : "light";
+      const darkTheme = createMuiTheme({
+        palette: {
+          type: palletType,
+        }
+      });      
+      const handleThemeChange = () => {
+       setDarkState(!darkState);
+       window.localStorage.setItem('mode', !darkState);
+      };
+    //get ONLY the current firebase users posts on the page 
     useEffect(() => {
       API.getPosts().then(res => {
         console.log('res');
         console.log(res);
-        const sortedCards = sortByDate(res.data);
+        const sortedCards = sortByUser(res.data);
         setCardArray(sortedCards);
       });
     }, []);
-
-    function sortByDate(cardArray) {
-      
-      // var card = cardArray.map(card => card.name === user.displayName);
-      // return card;
-      console.log('cardArray');
-      console.log(cardArray);
-    let card = [];
-    for (let i = 0 ; i < cardArray.length; i++){
-     console.log(cardArray[i].name);
-      if (cardArray[i].name === user.displayName){
-        card.push(cardArray[i]);
+    //cmon use map or soemthing struggled a bit with this but it works
+    function sortByUser(cardArray) {
+      let card = [];
+      for (let i = 0 ; i < cardArray.length; i++){
+        if (cardArray[i].name === user.displayName){
+          card.push(cardArray[i]);
+        }
       }
-    }
-    return card;
+      return card;
     };
-
-
-
-  //   return cardArray.map(card => {
-  //     const who = user.displayName;
-  //     console.log(who);
-  //     console.log('cardarray');
-  //     console.log(cardArray);
-  //     //loop thru card array and find matches for user and card.name post match only.
-
-  //     const newCard = card.every(who === card.name);
-  //     return newCard;
-  //     // cardArray.forEach(element => {
-  //     //   console.log('element');
-  //     //   console.log(element);
-  //     // });
-  //  // const dateString = card.date.split('/').reverse().toString();
-  //   console.log('card');
-  //   console.log(card);
-    //const dateTimestamp = Date.parse(dateString);
-    //card.date = dateTimestamp;
-    //return card;
-
-
-
-
-   
     //const { user } = useContext(UserContext);
     let user = firebase.auth().currentUser;
-
+    //profile card css
     const useStyles = makeStyles({
         root: {
           maxWidth: 345,   
@@ -87,63 +94,21 @@ const Profile  = () => {
           height: 140,
         },
       });
-    
     const classes = useStyles();
-
-    // useEffect(()=>{
-    //    fetch('/api/profile/profilePic',{
-    //        headers:{
-    //            "Authorization":"Bearer "+localStorage.getItem("jwt")//put in session storage for closing tab and throwing them out.
-    //        }
-    //    }).then(res=>res.json())
-    //    .then(result=>{
-    //        console.log('result');
-    //        console.log(result);
-    //        setPics(result.profilePic)
-    //    })
-    // },[])
-    // useEffect(()=>{
-    //    if(image){
-    //     const data = new FormData()
-    //     data.append("file",image)
-    //     data.append("cloud_name","cnq")       
-    //        fetch('/updatepic',{
-    //            method:"post",
-    //            headers:{
-    //                "Content-Type":"application/json",
-    //                "Authorization":"Bearer "+localStorage.getItem("jwt")
-    //            },
-    //            body:data
-    //        }).then(res=>res.json())
-    //        .then(result=>{
-    //            console.log(result)
-    //          //  localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
-    //          //  dispatch({type:"UPDATEPIC",payload:result.pic})
-    //            //window.location.reload()
-    //        })
-    //     .catch(err=>{
-    //         console.log(err)
-    //     })
-    //    }
-    // }, [image])
+    //let user select a jpeg or gif to make their profile image and store in firebase for now
     const updatePhoto = (file)=>{
-        
         console.log('file')
         console.log(file)
         // Get current username
 //        var user = firebase.auth().currentUser;
-
         // Create a Storage Ref w/ username
         var storageRef = firebase.storage().ref('profilepics/' + file.name);//user + '/profilepics/' + file.name
-
         // Create the file metadata
         var metadata = {
         contentType: 'image/jpeg'
         };
-
         // Upload file and metadata to the object 'images/mountains.jpg'
         var uploadTask = storageRef.child('profilepics/' + file.name).put(file, metadata);
-
         // Listen for state changes, errors, and completion of the upload.
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
         (snapshot) => {
@@ -169,9 +134,7 @@ const Profile  = () => {
             case 'storage/canceled':
                 // User canceled the upload
                 break;
-
             // ...
-
             case 'storage/unknown':
                 // Unknown error occurred, inspect error.serverResponse
                 break;
@@ -181,7 +144,6 @@ const Profile  = () => {
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
             console.log('File available at', downloadURL);           
-            
             user.updateProfile({
                 photoURL: downloadURL
               }).then(function() {
@@ -195,15 +157,7 @@ const Profile  = () => {
             });
           }
         );
-
-        // setImage(file)
-        
-       // setImage(file)
-      // export default function MediaCard() {
-        //const classes = useStyles();
-
     }
-     
       return (
         <div class='box'>
           <Card className={classes.root}>
@@ -218,16 +172,54 @@ const Profile  = () => {
                   {user.displayName}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Email address for {user.displayName} is {user.email}
+                  Email address for {user.displayName} is {user.email}  
+                  <td onClick={()=> window.open(window.localStorage.getItem('github'), "_blank")}> GitHub </td>
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
               <input type="file" id="propic" onChange={(e)=>updatePhoto(e.target.files[0])} hidden/>
               <label for ="propic">Change Pic</label>
-              <Button size="small" color="primary">
-                
+              <Button color="primary">
               </Button>
+              {/*dark or light mode*/}
+              <ThemeProvider theme={darkTheme}>
+                <div> Dark? </div>
+                <Switch checked={darkState} onChange={e => handleThemeChange(e.target.value)} /> 
+                <CssBaseline/>
+              </ThemeProvider>      
+              <div>
+                <Button variant="text" color="primary" onClick={handleClickOpen}>
+                  GitHub
+                </Button>
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                  <DialogTitle id="form-dialog-title">Add Link to your GitHub account</DialogTitle>
+                  <form onSubmit={handleSubmit}>  
+                    <DialogContent>
+                      <DialogContentText>
+                        Please copy the link to your GitHub profile page and click Save GitHub link.
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="GitHubLink"
+                        type="url"
+                        name='GitHubAddress'
+                        fullWidth
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="primary">
+                        Cancel
+                      </Button>
+                      <Button type='submit' onClick={handleClose} color="primary">
+                        Save GitHub link
+                      </Button>
+                    </DialogActions>
+                  </form>
+                </Dialog>
+              </div>
             </CardActions>
           </Card>
           <div>
@@ -240,61 +232,4 @@ const Profile  = () => {
         </div>
       );
     }
-
 export default Profile
-
-
-
-// return (
-//     <div style={{maxWidth:"550px",margin:"0px auto", color:'white'}}>
-//         <div style={{
-//            margin:"18px 0px",
-//             borderBottom:"1px solid grey"
-           
-//         }}>
-
-      
-//         <div style={{
-//             display:"flex",
-//             justifyContent:"space-around",
-           
-//         }}>
-//             <div>
-//                 <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-//                 src={user.photoURL}alt="profile"
-//                 />
-              
-//             </div>
-//             <div>
-               
-//                 <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
-//                     <h6>{mypics} posts</h6>
-
-//                 </div>
-
-//             </div>
-//         </div>
-     
-//          <div className="file-field input-field" style={{margin:"10px"}}>
-//          <div className="btn #64b5f6 white darken-1">
-//              <span>Update profile pic</span>
-//              <input type="file" onChange={(e)=>updatePhoto(e.target.files[0])} />//
-//          </div>
-//          {/* <div className="file-path-wrapper">
-//              <input className="file-path validate" type="text" />
-//          </div> */}
-//          </div>
-//          </div>      
-//         <div className="gallery">
-//             {
-//              //    mypics.map(item=>{
-//              //        return(
-//              //         <img key={item._id} className="item" src={item.photo} alt={item.title}/>  
-//              //        )
-//              //    })
-//             }
-
-        
-//         </div>
-//     </div>
-// )
