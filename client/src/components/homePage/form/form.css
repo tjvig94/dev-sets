@@ -27,3 +27,16 @@ textarea {
     padding: .5em;
     border: solid 1px #999
 }
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    background-color: whitesmoke;
+    color: black;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}

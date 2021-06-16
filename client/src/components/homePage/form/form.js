@@ -5,8 +5,6 @@ import storage, { db, firebase } from '../../../firebase';
 import axios from '../../../utils/axios';
 import { UserContext } from '../../../contexts/UserContext';
 
-
-
 function Form({ onClose }) {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
@@ -70,9 +68,11 @@ function Form({ onClose }) {
                     </textarea>
                 </div>
                 <div className="imgUploadButton">
-                    <label for="image" className="uploadButton">Upload:</label>
+                    <label for="image" className="custom-file-upload">Choose Image</label>
                     <input type="file" id="image"
                         name="image" onChange={handleChange} required />
+                    <div>
+                    </div>
                 </div>
                 <div className={"formButton"}>
                     {!isLoading && <Button type="submit" variant="contained" onClick={handleSubmit}>
